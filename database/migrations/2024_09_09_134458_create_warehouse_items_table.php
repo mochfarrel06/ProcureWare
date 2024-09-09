@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('warehouse_entries', function (Blueprint $table) {
+        Schema::create('warehouse_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('material_id')->constrained('materials')->onDelete('cascade');
+            $table->foreignId('purchase_id')->constrained('purchases')->onDelete('cascade');
+            $table->string('material_name');
+            $table->string('material_code');
+            $table->date('arrival_date');
             $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
-            $table->integer('quantity_received');
-            $table->string('condition');
-            $table->string('unique_number');
+            $table->integer('quantity');
             $table->string('storage_location');
-            $table->date('entry_date');
+            $table->enum('condition', ['good', 'bad']);
+            $table->string('unique_number')->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('warehouse_entries');
+        Schema::dropIfExists('warehouse_items');
     }
 };
