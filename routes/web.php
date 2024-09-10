@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Purchase\MaterialController;
+use App\Http\Controllers\Purchase\PurchaseApprovalController;
 use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Purchase\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -65,5 +66,10 @@ Route::get('supplier/{id}/show', [SupplierController::class, 'show'])->name('sup
 Route::get('supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
 Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
 Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+
+// Approval Manager
+Route::get('purchase-approval', [PurchaseApprovalController::class, 'index'])->name('purchaseApproval.index');
+Route::post('purchase-approval/{id}/approved', [PurchaseApprovalController::class, 'approved'])->name('purchaseApproval.approved');
+Route::post('purchase-approval/{id}/rejected', [PurchaseApprovalController::class, 'rejected'])->name('purchaseApproval.rejected');
 
 require __DIR__ . '/auth.php';
