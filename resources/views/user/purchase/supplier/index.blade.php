@@ -1,4 +1,4 @@
-@extends('user.purchase.layouts.master')
+@extends('user.layouts.master')
 
 @section('title-page')
     supplier

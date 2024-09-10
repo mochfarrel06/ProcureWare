@@ -29,6 +29,20 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if ($request->user()->role === 'manager_a') {
+            session()->flash('success', 'Berhasil masuk aplikasi');
+            return redirect()->intended(RouteServiceProvider::DASHBOARD);
+        } else if ($request->user()->role === 'manager_b') {
+            session()->flash('success', 'Berhasil masuk aplikasi');
+            return redirect()->intended(RouteServiceProvider::DASHBOARD);
+        } else if ($request->user()->role === 'staff_purchase') {
+            session()->flash('success', 'Berhasil masuk aplikasi');
+            return redirect()->intended(RouteServiceProvider::PURCHASE);
+        } else if ($request->user()->role === 'staff_warehouse') {
+            session()->flash('success', 'Berhasil masuk aplikasi');
+            return redirect()->intended(RouteServiceProvider::WAREHOUSE);
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

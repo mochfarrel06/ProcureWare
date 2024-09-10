@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Purchase\MaterialController;
 use App\Http\Controllers\Purchase\PurchaseApprovalController;
@@ -19,12 +20,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,44 +33,79 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('purchases', [PurchaseController::class, 'index'])->name('purchases.index');
-//     Route::get('purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
-//     Route::post('purchases', [PurchaseController::class, 'store'])->name('purchases.store');
-//     Route::post('purchases/{id}/approve', [PurchaseController::class, 'approve'])->name('purchases.approve');
-// });
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware(['auth', 'role:manager_a,manager_b']);
 
-// Purchase
-Route::get('purchases', [PurchaseController::class, 'index'])->name('purchases.index');
-Route::get('purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
-Route::post('purchases', [PurchaseController::class, 'store'])->name('purchases.store');
-Route::get('purchases/{id}/show', [PurchaseController::class, 'show'])->name('purchases.show');
-Route::get('purchases/{id}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
-Route::put('purchases/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
-Route::delete('purchases/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
-Route::post('purchases/{id}/approve', [PurchaseController::class, 'approve'])->name('purchases.approve');
 
-// Material
-Route::get('material', [MaterialController::class, 'index'])->name('material.index');
-Route::get('material/create', [MaterialController::class, 'create'])->name('material.create');
-Route::post('material', [MaterialController::class, 'store'])->name('material.store');
-Route::get('material/{id}/show', [MaterialController::class, 'show'])->name('material.show');
-Route::get('material/{id}/edit', [MaterialController::class, 'edit'])->name('material.edit');
-Route::put('material/{id}', [MaterialController::class, 'update'])->name('material.update');
-Route::delete('material/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
+Route::middleware(['auth', 'role:staff_purchase,manager_a,manager_b'])->group(function () {
+    Route::get('purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+    Route::get('purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
+    Route::post('purchases', [PurchaseController::class, 'store'])->name('purchases.store');
+    Route::get('purchases/{id}/show', [PurchaseController::class, 'show'])->name('purchases.show');
+    Route::get('purchases/{id}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
+    Route::put('purchases/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
+    Route::delete('purchases/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
+    Route::post('purchases/{id}/approve', [PurchaseController::class, 'approve'])->name('purchases.approve');
 
-// Supplier
-Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
-Route::get('supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
-Route::post('supplier', [SupplierController::class, 'store'])->name('supplier.store');
-Route::get('supplier/{id}/show', [SupplierController::class, 'show'])->name('supplier.show');
-Route::get('supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
-Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
-Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+    // Material
+    Route::get('material', [MaterialController::class, 'index'])->name('material.index');
+    Route::get('material/create', [MaterialController::class, 'create'])->name('material.create');
+    Route::post('material', [MaterialController::class, 'store'])->name('material.store');
+    Route::get('material/{id}/show', [MaterialController::class, 'show'])->name('material.show');
+    Route::get('material/{id}/edit', [MaterialController::class, 'edit'])->name('material.edit');
+    Route::put('material/{id}', [MaterialController::class, 'update'])->name('material.update');
+    Route::delete('material/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
 
-// Approval Manager
-Route::get('purchase-approval', [PurchaseApprovalController::class, 'index'])->name('purchaseApproval.index');
-Route::post('purchase-approval/{id}/approved', [PurchaseApprovalController::class, 'approved'])->name('purchaseApproval.approved');
-Route::post('purchase-approval/{id}/rejected', [PurchaseApprovalController::class, 'rejected'])->name('purchaseApproval.rejected');
+    // Supplier
+    Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
+    Route::get('supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+    Route::post('supplier', [SupplierController::class, 'store'])->name('supplier.store');
+    Route::get('supplier/{id}/show', [SupplierController::class, 'show'])->name('supplier.show');
+    Route::get('supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
+    Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
+    Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+
+    // Approval Manager
+    Route::get('purchase-approval', [PurchaseApprovalController::class, 'index'])->name('purchaseApproval.index');
+    Route::post('purchase-approval/{id}/approved', [PurchaseApprovalController::class, 'approved'])->name('purchaseApproval.approved');
+    Route::post('purchase-approval/{id}/rejected', [PurchaseApprovalController::class, 'rejected'])->name('purchaseApproval.rejected');
+});
+
+
+// Dashboard
+// Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Route::get('purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+// Route::get('purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
+// Route::post('purchases', [PurchaseController::class, 'store'])->name('purchases.store');
+// Route::get('purchases/{id}/show', [PurchaseController::class, 'show'])->name('purchases.show');
+// Route::get('purchases/{id}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
+// Route::put('purchases/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
+// Route::delete('purchases/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
+// Route::post('purchases/{id}/approve', [PurchaseController::class, 'approve'])->name('purchases.approve');
+
+// // Material
+// Route::get('material', [MaterialController::class, 'index'])->name('material.index');
+// Route::get('material/create', [MaterialController::class, 'create'])->name('material.create');
+// Route::post('material', [MaterialController::class, 'store'])->name('material.store');
+// Route::get('material/{id}/show', [MaterialController::class, 'show'])->name('material.show');
+// Route::get('material/{id}/edit', [MaterialController::class, 'edit'])->name('material.edit');
+// Route::put('material/{id}', [MaterialController::class, 'update'])->name('material.update');
+// Route::delete('material/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
+
+// // Supplier
+// Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
+// Route::get('supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+// Route::post('supplier', [SupplierController::class, 'store'])->name('supplier.store');
+// Route::get('supplier/{id}/show', [SupplierController::class, 'show'])->name('supplier.show');
+// Route::get('supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
+// Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
+// Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+
+// // Approval Manager
+// Route::get('purchase-approval', [PurchaseApprovalController::class, 'index'])->name('purchaseApproval.index');
+// Route::post('purchase-approval/{id}/approved', [PurchaseApprovalController::class, 'approved'])->name('purchaseApproval.approved');
+// Route::post('purchase-approval/{id}/rejected', [PurchaseApprovalController::class, 'rejected'])->name('purchaseApproval.rejected');
 
 require __DIR__ . '/auth.php';

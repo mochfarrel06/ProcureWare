@@ -1,4 +1,4 @@
-@extends('user.purchase.layouts.master')
+@extends('user.layouts.master')
 
 @section('title-page')
     Pembelian
@@ -15,7 +15,19 @@
 
             <x-content.table-body>
 
-                <x-content.thead :items="['ID', 'Materials', 'Supplier', 'Tanggal Pembelian', 'Jumlah', 'Status Persetujuan', 'Aksi']" />
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Materials</th>
+                        <th>Supplier</th>
+                        <th>Tanggal Pembelian</th>
+                        <th>umlah</th>
+                        <th>Status Persetujuan</th>
+                        @if (auth()->user()->role == 'manager_b' && auth()->user()->role == 'staff_purchase')
+                            <th>Aksi</th>
+                        @endif
+                    </tr>
+                </thead>
 
                 <x-content.tbody>
                     @foreach ($purchases as $purchase)
@@ -40,14 +52,16 @@
                                     {{ ucfirst($purchase->approval_status) ?? 'Unknown' }}
                                 </a>
                             </td>
-                            <td>
-                                <a href="{{ route('purchases.show', $purchase->id) }}" class="btn btn-warning mr-2 mb-2"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{{ route('purchases.edit', $purchase->id) }}" class="btn btn-success mr-2 mb-2"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="{{ route('purchases.destroy', $purchase->id) }}"
-                                    class="btn btn-danger mr-2 mb-2 delete-item"><i class="fas fa-trash"></i></a>
-                            </td>
+                            @if (auth()->user()->role == 'manager_b' && auth()->user()->role == 'staff_purchase')
+                                <td>
+                                    <a href="{{ route('purchases.show', $purchase->id) }}"
+                                        class="btn btn-warning mr-2 mb-2"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('purchases.edit', $purchase->id) }}"
+                                        class="btn btn-success mr-2 mb-2"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('purchases.destroy', $purchase->id) }}"
+                                        class="btn btn-danger mr-2 mb-2 delete-item"><i class="fas fa-trash"></i></a>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </x-content.tbody>
