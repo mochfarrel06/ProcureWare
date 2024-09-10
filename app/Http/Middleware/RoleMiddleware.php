@@ -20,6 +20,6 @@ class RoleMiddleware
             return $next($request);
         }
 
-        return redirect('/dashboard')->with('error', 'You do not have access to this page.');
+        return redirect()->back()->with('error', 'You do not have access to this page.');
     }
 }

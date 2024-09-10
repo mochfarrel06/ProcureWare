@@ -8,15 +8,14 @@ use App\Http\Requests\Purchase\PurchaseUpdateRequest;
 use App\Models\Material;
 use App\Models\Purchase;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('role:staff')->only(['create', 'store']);
-    //     $this->middleware('role:manager')->only(['approve']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
+        $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    }
 
     public function index()
     {
@@ -117,15 +116,4 @@ class PurchaseController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
-
-    // public function approve($id)
-    // {
-    //     $purchase = Purchase::find($id);
-    //     if ($purchase) {
-    //         $purchase->approval_status = 'approved';
-    //         $purchase->save();
-    //     }
-
-    //     return redirect()->route('purchases.index');
-    // }
 }

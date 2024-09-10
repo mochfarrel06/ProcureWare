@@ -1,11 +1,11 @@
 <!-- Sidebar -->
 <x-sidebar.layout>
     <!-- Sidebar title -->
-    <x-sidebar.title :name="'ProcureWare'" :icon="'fas fa-solid fa-book'" :addRoute="'purchases.index'" />
+    <x-sidebar.title :name="'ProcureWare'" :icon="'fas fa-solid fa-book'" :addRoute="'dashboard'" />
     <!-- End sidebar title -->
 
     <!-- Nav item dashboard -->
-    <x-sidebar.nav-item route="purchases.index" icon="fa-tachometer-alt" label="Dashboard" />
+    <x-sidebar.nav-item route="dashboard" icon="fa-tachometer-alt" label="Dashboard" />
     <!-- End nav item dashboard -->
 
     <!-- Nav item barang -->
@@ -14,8 +14,13 @@
             ['route' => 'purchases.index', 'label' => 'Daftar Pembelian'],
             ['route' => 'material.index', 'label' => 'Master Material'],
             ['route' => 'supplier.index', 'label' => 'Master Supplier'],
-            ['route' => 'purchaseApproval.index', 'label' => 'Master Persetujuan'],
+            [
+                'route' => 'purchaseApproval.index',
+                'label' => 'Master Persetujuan',
+                'roles' => ['manager_a', 'manager_b'],
+            ],
         ]" />
+
     <!-- End nav item -->
 
     <!-- Divider -->

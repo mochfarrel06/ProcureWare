@@ -15,7 +15,17 @@
 
             <x-content.table-body>
 
-                <x-content.thead :items="['ID', 'Nama Supplier', 'Kode Supplier', 'Kontak', 'Aksi']" />
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama Supplier</th>
+                        <th>Kode Supplier</th>
+                        <th>Kontak</th>
+                        @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
+                            <th>Aksi</th>
+                        @endif
+                    </tr>
+                </thead>
 
                 <x-content.tbody>
                     @foreach ($suppliers as $supplier)
@@ -24,14 +34,16 @@
                             <td>{{ $supplier->name ?? '' }}</td>
                             <td>{{ $supplier->code ?? '' }}</td>
                             <td>{{ $supplier->contact ?? '' }}</td>
-                            <td>
-                                <a href="{{ route('supplier.show', $supplier->id) }}" class="btn btn-warning mr-2 mb-2"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{{ route('supplier.edit', $supplier->id) }}" class="btn btn-success mr-2 mb-2"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="{{ route('supplier.destroy', $supplier->id) }}"
-                                    class="btn btn-danger mr-2 mb-2 delete-item"><i class="fas fa-trash"></i></a>
-                            </td>
+                            @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
+                                <td>
+                                    <a href="{{ route('supplier.show', $supplier->id) }}" class="btn btn-warning mr-2 mb-2"><i
+                                            class="fas fa-eye"></i></a>
+                                    <a href="{{ route('supplier.edit', $supplier->id) }}" class="btn btn-success mr-2 mb-2"><i
+                                            class="fas fa-edit"></i></a>
+                                    <a href="{{ route('supplier.destroy', $supplier->id) }}"
+                                        class="btn btn-danger mr-2 mb-2 delete-item"><i class="fas fa-trash"></i></a>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </x-content.tbody>

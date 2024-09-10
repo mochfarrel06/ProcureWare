@@ -21,9 +21,9 @@
                         <th>Materials</th>
                         <th>Supplier</th>
                         <th>Tanggal Pembelian</th>
-                        <th>umlah</th>
+                        <th>Jumlah</th>
                         <th>Status Persetujuan</th>
-                        @if (auth()->user()->role == 'manager_b' && auth()->user()->role == 'staff_purchase')
+                        @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                             <th>Aksi</th>
                         @endif
                     </tr>
@@ -52,7 +52,7 @@
                                     {{ ucfirst($purchase->approval_status) ?? 'Unknown' }}
                                 </a>
                             </td>
-                            @if (auth()->user()->role == 'manager_b' && auth()->user()->role == 'staff_purchase')
+                            @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                                 <td>
                                     <a href="{{ route('purchases.show', $purchase->id) }}"
                                         class="btn btn-warning mr-2 mb-2"><i class="fas fa-eye"></i></a>

@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class PurchaseApprovalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:manager_a,manager_b');
+    }
+
     public function index()
     {
         $purchases = Purchase::all();
