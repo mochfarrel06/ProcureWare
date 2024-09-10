@@ -8,4 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'material_id',
+        'supplier_id',
+        'purchase_date',
+        'quantity',
+        'approval_status',
+    ];
+
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function warehouseItems()
+    {
+        return $this->hasMany(WarehouseItem::class);
+    }
 }
