@@ -20,16 +20,16 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        $purchases = Purchase::with('supplier')->get();
+        $purchases = Purchase::with(['supplier', 'material'])->get();
 
-        return view('user.purchase.index', compact('purchases'));
+        return view('user.purchase.purchases.index', compact('purchases'));
     }
 
     public function create()
     {
         $materials = Material::all();
         $suppliers = Supplier::all();
-        return view('user.purchase.create', compact('materials', 'suppliers'));
+        return view('user.purchase.purchases.create', compact('materials', 'suppliers'));
     }
 
     public function store(PurchaseCreateRequest $request)
@@ -62,7 +62,7 @@ class PurchaseController extends Controller
         $material = $purchase->material;
         $supplier = $purchase->supplier;
 
-        return view('user.purchase.show', compact('purchase', 'material', 'supplier'));
+        return view('user.purchase.purchases.show', compact('purchase', 'material', 'supplier'));
     }
 
     public function edit(string $id)
@@ -71,7 +71,7 @@ class PurchaseController extends Controller
         $materials = Material::all();
         $suppliers = Supplier::all();
 
-        return view('user.purchase.edit', compact('purchase', 'materials', 'suppliers'));
+        return view('user.purchase.purchases.edit', compact('purchase', 'materials', 'suppliers'));
     }
 
     public function update(PurchaseUpdateRequest $request, string $id)

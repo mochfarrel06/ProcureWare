@@ -9,8 +9,11 @@
     <!-- End nav item dashboard -->
 
     <!-- Nav item barang -->
-    <x-sidebar.nav-item title="Master" icon="fa-shop" label="Daftar Pembelian" collapseId="collapseItem" :routes="['purchases.*']"
-        :subItems="[['route' => 'purchases.index', 'label' => 'Daftar Pembelian']]" />
+    <x-sidebar.nav-item title="Master" icon="fa-shop" label="Daftar Pembelian" collapseId="collapseItem" :routes="['purchases.*', 'material.*']"
+        :subItems="[
+            ['route' => 'purchases.index', 'label' => 'Daftar Pembelian'],
+            ['route' => 'material.index', 'label' => 'Master Material'],
+        ]" />
     <!-- End nav item -->
 
     <!-- Divider -->
