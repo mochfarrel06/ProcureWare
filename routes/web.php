@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Purchase\MaterialController;
 use App\Http\Controllers\Purchase\PurchaseController;
+use App\Http\Controllers\Purchase\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,5 +56,14 @@ Route::get('material/{id}/show', [MaterialController::class, 'show'])->name('mat
 Route::get('material/{id}/edit', [MaterialController::class, 'edit'])->name('material.edit');
 Route::put('material/{id}', [MaterialController::class, 'update'])->name('material.update');
 Route::delete('material/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
+
+// Supplier
+Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
+Route::get('supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+Route::post('supplier', [SupplierController::class, 'store'])->name('supplier.store');
+Route::get('supplier/{id}/show', [SupplierController::class, 'show'])->name('supplier.show');
+Route::get('supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
+Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
+Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
 
 require __DIR__ . '/auth.php';
