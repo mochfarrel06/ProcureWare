@@ -11,7 +11,7 @@
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tabel Pembelian'" :icon="'fas fa-cube'" :addRoute="'purchases.create'" />
+            <x-content.table-header :title="'Tabel Pembelian'" :icon="'fas fa-solid fa-shop'" :addRoute="'purchases.create'" />
 
             <x-content.table-body>
 
