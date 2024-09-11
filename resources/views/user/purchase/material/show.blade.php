@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('user.purchase.layouts.master')
 
 @section('title-page')
     Show
@@ -7,15 +7,15 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Tambah Data Barang'" :breadcrumbs="[
-            ['title' => 'Dashboard', 'url' => route('admin.dashboard')],
-            ['title' => 'Data Barang', 'url' => route('admin.item.index')],
-            ['title' => 'Tambah'],
-        ]" /> --}}
+        <x-content.heading-page :title="'Lihat Master Material'" :breadcrumbs="[
+            ['title' => 'Dashboard', 'url' => route('dashboard')],
+            ['title' => 'Material', 'url' => route('material.index')],
+            ['title' => 'Show'],
+        ]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tambah Pembelian'" :icon="'fas fa-solid fa-plus'" />
+            <x-content.table-header :title="'Lihat Master material'" :icon="'fas fa-solid fa-eye'" />
 
             <x-content.card-body>
                 <form>

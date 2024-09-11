@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('user.purchase.layouts.master')
 
 @section('title-page')
     Edit
@@ -7,15 +7,15 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Tambah Data Barang'" :breadcrumbs="[
-            ['title' => 'Dashboard', 'url' => route('admin.dashboard')],
-            ['title' => 'Data Barang', 'url' => route('admin.item.index')],
-            ['title' => 'Tambah'],
-        ]" /> --}}
+        <x-content.heading-page :title="'Edit Master Material'" :breadcrumbs="[
+            ['title' => 'Dashboard', 'url' => route('dashboard')],
+            ['title' => 'Material', 'url' => route('material.index')],
+            ['title' => 'Edit'],
+        ]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tambah Pembelian'" :icon="'fas fa-solid fa-plus'" />
+            <x-content.table-header :title="'Edit Master Material'" :icon="'fas fa-solid fa-plus'" />
 
             <x-content.card-body>
                 <form id="main-form" action="{{ route('material.update', $material->id) }}" method="POST">
@@ -40,7 +40,7 @@
                             name="description" id="description" value="{{ old('description', $material->description) }}">
                     </div>
 
-                    <div class="mt-3">
+                    <div class="mt-5">
                         <button type="submit" id="submit-btn" class="btn btn-success">Edit</button>
                         <a href="{{ route('material.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>
@@ -73,13 +73,13 @@
                     if (response.success) {
                         // Flash message sukses
                         sessionStorage.setItem('success',
-                            'Jenis barang berhasil disubmit.');
+                            'Master Material berhasil disubmit.');
                         window.location.href =
                             "{{ route('material.index') }}"; // Redirect to index page
                     } else if (response.info) {
                         // Flash message info
                         sessionStorage.setItem('info',
-                            'Tidak melakukan perubahan data pada jenis barang.');
+                            'Tidak melakukan perubahan data pada Master Material.');
                         window.location.href =
                             "{{ route('material.index') }}"; // Redirect to index page
                     } else {
@@ -100,7 +100,7 @@
                     }
 
                     const message = response.responseJSON.message ||
-                        'Terdapat kesalahan pada jenis barang.';
+                        'Terdapat kesalahan pada Master Material.';
                     $('#flash-messages').html('<div class="alert alert-danger">' + message +
                         '</div>');
                 },

@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('user.purchase.layouts.master')
 
 @section('title-page')
     Create
@@ -7,15 +7,15 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Tambah Data Barang'" :breadcrumbs="[
-            ['title' => 'Dashboard', 'url' => route('admin.dashboard')],
-            ['title' => 'Data Barang', 'url' => route('admin.item.index')],
-            ['title' => 'Tambah'],
-        ]" /> --}}
+        <x-content.heading-page :title="'Tambah Master Material'" :breadcrumbs="[
+            ['title' => 'Dashboard', 'url' => route('dashboard')],
+            ['title' => 'Material', 'url' => route('material.index')],
+            ['title' => 'Create'],
+        ]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tambah Pembelian'" :icon="'fas fa-solid fa-plus'" />
+            <x-content.table-header :title="'Tambah Master Material'" :icon="'fas fa-solid fa-plus'" />
 
             <x-content.card-body>
                 <form id="main-form" action="{{ route('material.store') }}" method="POST">
@@ -40,7 +40,7 @@
                             placeholder="Masukkan deskripsi material">
                     </div>
 
-                    <div class="mt-3">
+                    <div class="mt-5">
                         <button type="submit" id="submit-btn" class="btn btn-primary">Tambah</button>
                         <a href="{{ route('material.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>
@@ -73,7 +73,7 @@
                     success: function(response) {
                         if (response.success) {
                             sessionStorage.setItem('success',
-                                'Jenis barang berhasil disubmit.');
+                                'Material berhasil disubmit.');
                             window.location.href =
                                 "{{ route('material.index') }}"; // Redirect to index page
                         } else {
@@ -92,7 +92,7 @@
                         }
 
                         const message = response.responseJSON.message ||
-                            'Terdapat kesalahan pada proses jenis barang';
+                            'Terdapat kesalahan pada proses Material';
                         $('#flash-messages').html('<div class="alert alert-danger">' + message +
                             '</div>');
                     },

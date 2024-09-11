@@ -38,10 +38,10 @@ class MaterialController extends Controller
             ]);
             $material->save();
 
-            session()->flash('success', 'Berhasil menambahkan data barang masuk');
+            session()->flash('success', 'Berhasil menambahkan master material');
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada proses pembelian: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada master material: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -71,14 +71,14 @@ class MaterialController extends Controller
             if ($material->isDirty()) {
                 $material->save();
 
-                session()->flash('success', 'Berhasil melakukan perubahan pada data barang');
+                session()->flash('success', 'Berhasil melakukan perubahan pada master material');
                 return response()->json(['success' => true], 200);
             } else {
-                session()->flash('info', 'Tidak melakukan perubahan pada data barang');
+                session()->flash('info', 'Tidak melakukan perubahan pada master material');
                 return response()->json(['info' => true], 200);
             }
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada data barang: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada master material: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -89,7 +89,7 @@ class MaterialController extends Controller
             $material = Material::findOrFail($id);
             $material->delete();
 
-            return response(['status' => 'success', 'message' => 'Berhasil menghapus data barang']);
+            return response(['status' => 'success', 'message' => 'Berhasil menghapus master material']);
         } catch (\Exception $e) {
             // Menangani exception jika terjadi kesalahan saat menghapus
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
