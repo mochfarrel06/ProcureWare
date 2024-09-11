@@ -1,4 +1,4 @@
-@extends('user.purchase.layouts.master')
+@extends('user.layouts.master')
 
 @section('title-page')
     Edit
@@ -18,52 +18,31 @@
             <x-content.table-header :title="'Tambah Pembelian'" :icon="'fas fa-solid fa-plus'" />
 
             <x-content.card-body>
-                <form id="main-form" action="{{ route('purchases.update', $purchase->id) }}" method="POST">
+                <form id="main-form" action="{{ route('material.update', $material->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
                     <div class="form-group">
-                        <label for="material_id">Material</label>
-                        <select class="form-control @error('material_id') is-invalid @enderror" name="material_id"
-                            id="material_id">
-                            <option value="">-- Pilih Material --</option>
-                            @foreach ($materials as $material)
-                                <option value="{{ $material->id }}"
-                                    {{ $material->id == $purchase->material_id ? 'selected' : '' }}>{{ $material->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label for="name">Nama Material</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            id="name" value="{{ old('name', $material->name) }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="supplier_id">Supplier</label>
-                        <select class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id"
-                            id="supplier_id">
-                            <option value="">-- Pilih Supplier --</option>
-                            @foreach ($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}"
-                                    {{ $supplier->id == $purchase->supplier_id ? 'selected' : '' }}>{{ $supplier->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label for="code">Kode Material</label>
+                        <input type="text" class="form-control @error('code') is-invalid @enderror" name="code"
+                            id="code" value="{{ old('code', $material->code) }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="purchase_date">Tanggal Pembelian</label>
-                        <input type="date" class="form-control @error('purchase_date') is-invalid @enderror"
-                            name="purchase_date" id="purchase_date"
-                            value="{{ old('purchase_date', $purchase->purchase_date) }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="quantity">Jumlah Pembelian</label>
-                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity"
-                            id="quantity" value="{{ old('quantity', $purchase->quantity) }}">
+                        <label for="description">Deskripsi Material</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror"
+                            name="description" id="description" value="{{ old('description', $material->description) }}">
                     </div>
 
                     <div class="mt-3">
                         <button type="submit" id="submit-btn" class="btn btn-success">Edit</button>
-                        <a href="{{ route('purchases.index') }}" class="btn btn-warning ml-2">Kembali</a>
+                        <a href="{{ route('material.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>
                 </form>
             </x-content.card-body>
@@ -96,13 +75,13 @@
                         sessionStorage.setItem('success',
                             'Jenis barang berhasil disubmit.');
                         window.location.href =
-                            "{{ route('purchases.index') }}"; // Redirect to index page
+                            "{{ route('material.index') }}"; // Redirect to index page
                     } else if (response.info) {
                         // Flash message info
                         sessionStorage.setItem('info',
                             'Tidak melakukan perubahan data pada jenis barang.');
                         window.location.href =
-                            "{{ route('purchases.index') }}"; // Redirect to index page
+                            "{{ route('material.index') }}"; // Redirect to index page
                     } else {
                         // Flash message error
                         $('#flash-messages').html('<div class="alert alert-danger">' +

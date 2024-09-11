@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('purchase_date');
             $table->integer('quantity');
             $table->enum('approval_status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->date('approved_date')->nullable();
             $table->timestamps();
         });
     }

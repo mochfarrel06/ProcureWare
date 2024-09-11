@@ -8,28 +8,27 @@ use App\Http\Requests\Purchase\PurchaseUpdateRequest;
 use App\Models\Material;
 use App\Models\Purchase;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('role:staff')->only(['create', 'store']);
-    //     $this->middleware('role:manager')->only(['approve']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
+        $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    }
 
     public function index()
     {
-        $purchases = Purchase::with('supplier')->get();
+        $purchases = Purchase::with(['supplier', 'material'])->get();
 
-        return view('user.purchase.index', compact('purchases'));
+        return view('user.purchase.purchases.index', compact('purchases'));
     }
 
     public function create()
     {
         $materials = Material::all();
         $suppliers = Supplier::all();
-        return view('user.purchase.create', compact('materials', 'suppliers'));
+        return view('user.purchase.purchases.create', compact('materials', 'suppliers'));
     }
 
     public function store(PurchaseCreateRequest $request)
@@ -62,7 +61,7 @@ class PurchaseController extends Controller
         $material = $purchase->material;
         $supplier = $purchase->supplier;
 
-        return view('user.purchase.show', compact('purchase', 'material', 'supplier'));
+        return view('user.purchase.purchases.show', compact('purchase', 'material', 'supplier'));
     }
 
     public function edit(string $id)
@@ -71,7 +70,7 @@ class PurchaseController extends Controller
         $materials = Material::all();
         $suppliers = Supplier::all();
 
-        return view('user.purchase.edit', compact('purchase', 'materials', 'suppliers'));
+        return view('user.purchase.purchases.edit', compact('purchase', 'materials', 'suppliers'));
     }
 
     public function update(PurchaseUpdateRequest $request, string $id)
@@ -117,15 +116,4 @@ class PurchaseController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
-
-    // public function approve($id)
-    // {
-    //     $purchase = Purchase::find($id);
-    //     if ($purchase) {
-    //         $purchase->approval_status = 'approved';
-    //         $purchase->save();
-    //     }
-
-    //     return redirect()->route('purchases.index');
-    // }
 }

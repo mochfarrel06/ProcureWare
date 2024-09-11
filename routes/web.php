@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Purchase\MaterialController;
+use App\Http\Controllers\Purchase\PurchaseApprovalController;
 use App\Http\Controllers\Purchase\PurchaseController;
+use App\Http\Controllers\Purchase\PurchaseHistoryController;
+use App\Http\Controllers\Purchase\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,12 +21,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,22 +34,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('purchases', [PurchaseController::class, 'index'])->name('purchases.index');
-//     Route::get('purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
-//     Route::post('purchases', [PurchaseController::class, 'store'])->name('purchases.store');
-//     Route::post('purchases/{id}/approve', [PurchaseController::class, 'approve'])->name('purchases.approve');
-// });
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware(['auth', 'role:manager_a,manager_b']);
 
-Route::get('purchases', [PurchaseController::class, 'index'])->name('purchases.index');
-Route::get('purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
-Route::post('purchases', [PurchaseController::class, 'store'])->name('purchases.store');
-Route::get('purchase/{id}/show', [PurchaseController::class, 'show'])->name('purchases.show');
-Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
-Route::put('purchase/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
-Route::delete('purchase/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
-Route::post('purchases/{id}/approve', [PurchaseController::class, 'approve'])->name('purchases.approve');
+Route::middleware(['auth', 'role:staff_purchase,manager_a,manager_b'])->group(function () {
+    // Purchases
+    Route::resource('purchases', PurchaseController::class);
 
+    // Material
+    Route::resource('material', MaterialController::class);
+
+    // Supplier
+    Route::resource('supplier', SupplierController::class);
+
+    // Approval Manager
+    Route::get('purchase-approval', [PurchaseApprovalController::class, 'index'])->name('purchaseApproval.index');
+    Route::post('purchase-approval/{id}/approved', [PurchaseApprovalController::class, 'approved'])->name('purchaseApproval.approved');
+    Route::post('purchase-approval/{id}/rejected', [PurchaseApprovalController::class, 'rejected'])->name('purchaseApproval.rejected');
+
+    // History Purchase
+    Route::get('purchase-history', [PurchaseHistoryController::class, 'index'])->name('purchaseHistory.index');
+});
 
 
 require __DIR__ . '/auth.php';

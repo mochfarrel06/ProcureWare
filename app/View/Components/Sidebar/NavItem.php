@@ -15,11 +15,12 @@ class NavItem extends Component
     public $routes;
     public $collapseId;
     public $subItems;
+    public $roles; // Tambahkan properti roles
 
     /**
      * Create a new component instance.
      */
-    public function __construct($icon, $label, $title = null, $collapseId = null, $routes = [], $subItems = [], $route = null)
+    public function __construct($icon, $label, $title = null, $collapseId = null, $routes = [], $subItems = [], $route = null, $roles = [])
     {
         $this->route = $route;
         $this->icon = $icon;
@@ -28,6 +29,7 @@ class NavItem extends Component
         $this->collapseId = $collapseId;
         $this->subItems = $subItems;
         $this->title = $title;
+        $this->roles = $roles; // Simpan roles
     }
 
     public function isActive()
@@ -43,6 +45,15 @@ class NavItem extends Component
         }
 
         return false;
+    }
+
+    public function shouldDisplay()
+    {
+        if (empty($this->roles)) {
+            return true; // Tampilkan jika tidak ada peran yang ditentukan
+        }
+
+        return auth()->check() && in_array(auth()->user()->role, $this->roles);
     }
 
     /**

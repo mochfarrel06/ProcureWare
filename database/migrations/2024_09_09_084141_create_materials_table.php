@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->unique();
-            $table->string('category');
-            $table->integer('stock')->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
