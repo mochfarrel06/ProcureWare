@@ -24,6 +24,7 @@ class PurchaseApprovalController extends Controller
         try {
             $purchase = Purchase::findOrFail($id);
             $purchase->approval_status = 'approved';
+            $purchase->approved_date = now();
             $purchase->save();
 
             session()->flash('success', 'Berhasil menyetujui');

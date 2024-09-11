@@ -35,15 +35,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="category">Kategori Material</label>
-                        <input type="text" class="form-control @error('category') is-invalid @enderror" name="category"
-                            id="category" value="{{ old('category', $material->category) }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="stock">Jumlah Stok Material</label>
-                        <input type="number" class="form-control @error('stock') is-invalid @enderror" name="stock"
-                            id="stock" value="{{ old('stock', $material->stock) }}">
+                        <label for="description">Deskripsi Material</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror"
+                            name="description" id="description" value="{{ old('description', $material->description) }}">
                     </div>
 
                     <div class="mt-3">

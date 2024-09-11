@@ -26,6 +26,7 @@ class PurchaseCreateRequest extends FormRequest
             'supplier_id' => ['required', 'exists:suppliers,id'],
             'purchase_date' => ['required', 'date'],
             'quantity' => ['required', 'numeric', 'min:0'],
+            'approved_date' => ['nullable', 'date']
         ];
     }
 

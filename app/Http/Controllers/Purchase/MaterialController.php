@@ -34,8 +34,7 @@ class MaterialController extends Controller
             $material = new Material([
                 'name' => $request->name,
                 'code' => $request->code,
-                'category' => $request->category,
-                'stock' => $request->stock
+                'description' => $request->description,
             ]);
             $material->save();
 

@@ -18,44 +18,37 @@ class MaterialSeeder extends Seeder
             [
                 'name' => 'Baja Ringan',
                 'code' => 'MTRL001',
-                'category' => 'Konstruksi',
-                'stock' => 100,
+                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio repellat qui nobis'
             ],
             [
                 'name' => 'Semen Portland',
                 'code' => 'MTRL002',
-                'category' => 'Konstruksi',
-                'stock' => 250,
+                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio repellat qui nobis'
             ],
             [
                 'name' => 'Pasir Sungai',
                 'code' => 'MTRL003',
-                'category' => 'Konstruksi',
-                'stock' => 500,
+                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio repellat qui nobis'
             ],
             [
                 'name' => 'Besi Beton',
                 'code' => 'MTRL004',
-                'category' => 'Konstruksi',
-                'stock' => 150,
+                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio repellat qui nobis'
             ],
             [
                 'name' => 'Kayu Balok',
                 'code' => 'MTRL005',
-                'category' => 'Konstruksi',
-                'stock' => 75,
+                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio repellat qui nobis'
             ],
             [
                 'name' => 'Pipa PVC 2 Inch',
                 'code' => 'MTRL006',
-                'category' => 'Pipa & Plumbing',
-                'stock' => 200,
+                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio repellat qui nobis'
             ],
             [
                 'name' => 'Kabel Listrik 2.5mm',
                 'code' => 'MTRL007',
-                'category' => 'Listrik',
-                'stock' => 300,
+                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio repellat qui nobis'
             ],
         ]);
     }

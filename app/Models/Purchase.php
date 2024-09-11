@@ -14,6 +14,7 @@ class Purchase extends Model
         'purchase_date',
         'quantity',
         'approval_status',
+        'approved_date'
     ];
 
     public function material()

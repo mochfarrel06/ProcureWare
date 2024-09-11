@@ -40,6 +40,12 @@
                             id="contact" value="{{ old('contact', $supplier->contact) }}">
                     </div>
 
+                    <div class="form-group">
+                        <label for="address">Alamat Supplier</label>
+                        <input type="text" class="form-control @error('address') is-invalid @enderror" name="address"
+                            id="address" value="{{ old('address', $supplier->address) }}">
+                    </div>
+
                     <div class="mt-3">
                         <button type="submit" id="submit-btn" class="btn btn-success">Edit</button>
                         <a href="{{ route('supplier.index') }}" class="btn btn-warning ml-2">Kembali</a>

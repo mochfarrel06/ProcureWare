@@ -21,13 +21,12 @@ class MaterialUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $materialId = $this->route('id');
+        $materialId = $this->route('material');
 
         return [
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:materials,code,' . $materialId],
-            'category' => ['required', 'string', 'min:0'],
-            'stock' => ['required', 'numeric', 'min:0'],
+            'description' => ['nullable', 'string']
         ];
     }
 
@@ -37,8 +36,6 @@ class MaterialUpdateRequest extends FormRequest
             'name.required' => 'Nama material tidak boleh kosong',
             'code.required' => 'Kode material tidak boleh kosong',
             'code.unique' => 'Kode material sudah di tambahkan',
-            'category.required' => 'Kategori tidak boleh kosong',
-            'stock.required' => 'Stok material tidak boleh kosong',
         ];
     }
 }

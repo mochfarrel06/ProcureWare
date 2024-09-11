@@ -21,6 +21,7 @@
                         <th>Nama Supplier</th>
                         <th>Kode Supplier</th>
                         <th>Kontak</th>
+                        <th>Alamat</th>
                         @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                             <th>Aksi</th>
                         @endif
@@ -34,6 +35,7 @@
                             <td>{{ $supplier->name ?? '' }}</td>
                             <td>{{ $supplier->code ?? '' }}</td>
                             <td>{{ $supplier->contact ?? '' }}</td>
+                            <td>{{ $supplier->address ?? '' }}</td>
                             @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                                 <td>
                                     <a href="{{ route('supplier.show', $supplier->id) }}" class="btn btn-warning mr-2 mb-2"><i

@@ -21,12 +21,13 @@ class SupplierUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $supplierId = $this->route('id');
+        $supplierId = $this->route('supplier');
 
         return [
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:suppliers,code,' . $supplierId],
             'contact' => ['required', 'string', 'min:0'],
+            'address' => ['nullable', 'string']
         ];
     }
 

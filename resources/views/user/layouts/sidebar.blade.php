@@ -9,7 +9,7 @@
     <!-- End nav item dashboard -->
 
     <!-- Nav item barang -->
-    <x-sidebar.nav-item title="Master" icon="fa-shop" label="Daftar Pembelian" collapseId="collapseItem" :routes="['purchases.*', 'material.*', 'supplier.*', 'purchaseApproval.*']"
+    <x-sidebar.nav-item title="Master" icon="fa-shop" label="Daftar Pembelian" collapseId="collapseItem" :routes="['purchases.*', 'material.*', 'supplier.*', 'purchaseApproval.*', 'purchaseHistory.*']"
         :subItems="[
             ['route' => 'purchases.index', 'label' => 'Daftar Pembelian'],
             ['route' => 'material.index', 'label' => 'Master Material'],
@@ -19,6 +19,7 @@
                 'label' => 'Master Persetujuan',
                 'roles' => ['manager_a', 'manager_b'],
             ],
+            ['route' => 'purchaseHistory.index', 'label' => 'Riwayat Pembelian'],
         ]" />
 
     <!-- End nav item -->

@@ -35,6 +35,7 @@ class SupplierController extends Controller
                 'name' => $request->name,
                 'code' => $request->code,
                 'contact' => $request->contact,
+                'address' => $request->address
             ]);
 
             $supplier->save();

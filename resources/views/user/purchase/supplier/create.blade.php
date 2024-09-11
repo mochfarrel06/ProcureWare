@@ -39,6 +39,11 @@
                             id="contact" value="{{ old('contact') }}" placeholder="Masukkan kontak supplier">
                     </div>
 
+                    <div class="form-group">
+                        <label for="address">Alamat Supplier</label>
+                        <input type="text" class="form-control @error('address') is-invalid @enderror" name="address"
+                            id="address" value="{{ old('address') }}" placeholder="Masukkan alamat supplier">
+                    </div>
 
                     <div class="mt-3">
                         <button type="submit" id="submit-btn" class="btn btn-primary">Tambah</button>

@@ -25,6 +25,7 @@ class SupplierCreateRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:suppliers,code'],
             'contact' => ['required', 'string', 'min:0'],
+            'address' => ['nullable', 'string']
         ];
     }
 

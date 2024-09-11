@@ -11,7 +11,7 @@
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tabel Pembelian'" :icon="'fas fa-solid fa-shop'" :addRoute="'purchases.create'" />
+            <x-content.table-header :title="'Tabel Pembelian'" :icon="'fas fa-solid fa-shop'" />
 
             <x-content.table-body>
 
@@ -24,9 +24,6 @@
                         <th>Jumlah</th>
                         <th>Status Persetujuan</th>
                         <th>Tanggal Persetujuan</th>
-                        @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
-                            <th>Aksi</th>
-                        @endif
                     </tr>
                 </thead>
 
@@ -55,16 +52,6 @@
                             </td>
                             <td>{{ \Carbon\Carbon::parse($purchase->approved_date)->locale('id')->isoFormat('D MMMM YYYY') }}
                             </td>
-                            @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
-                                <td>
-                                    <a href="{{ route('purchases.show', $purchase->id) }}"
-                                        class="btn btn-warning mr-2 mb-2"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('purchases.edit', $purchase->id) }}"
-                                        class="btn btn-success mr-2 mb-2"><i class="fas fa-edit"></i></a>
-                                    <a href="{{ route('purchases.destroy', $purchase->id) }}"
-                                        class="btn btn-danger mr-2 mb-2 delete-item"><i class="fas fa-trash"></i></a>
-                                </td>
-                            @endif
                         </tr>
                     @endforeach
                 </x-content.tbody>

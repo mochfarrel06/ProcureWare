@@ -11,8 +11,7 @@ class Material extends Model
     protected $fillable = [
         'name',
         'code',
-        'category',
-        'stock',
+        'description'
     ];
 
     public function purchases()

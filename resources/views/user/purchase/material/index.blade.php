@@ -20,8 +20,7 @@
                         <th>ID</th>
                         <th>Nama Material</th>
                         <th>Kode Material</th>
-                        <th>Kategori</th>
-                        <th>Stok</th>
+                        <th>Deskripsi</th>
                         @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                             <th>Aksi</th>
                         @endif
@@ -34,8 +33,7 @@
                             <td class="index">{{ $loop->index + 1 }}</td>
                             <td>{{ $material->name ?? '' }}</td>
                             <td>{{ $material->code ?? '' }}</td>
-                            <td>{{ $material->category ?? '' }}</td>
-                            <td>{{ $material->stock ?? '' }}</td>
+                            <td>{{ $material->description ?? '' }}</td>
                             @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                                 <td>
                                     <a href="{{ route('material.show', $material->id) }}" class="btn btn-warning mr-2 mb-2"><i
