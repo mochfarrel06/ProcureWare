@@ -20,6 +20,7 @@
                 'supplier.*',
                 'purchase-request.*',
                 'purchases.*',
+                'purchase-item.*',
                 'purchaseHistory.*',
                 'purchaseApproval.*',
             ]" :subItems="[
@@ -27,6 +28,7 @@
                 ['route' => 'supplier.index', 'label' => 'Master Supplier'],
                 ['route' => 'purchase-request.index', 'label' => 'Permintaan Pembelian'],
                 ['route' => 'purchases.index', 'label' => 'Daftar Pembelian'],
+                ['route' => 'purchase-item.index', 'label' => 'Detail Pembelian'],
                 ['route' => 'purchaseHistory.index', 'label' => 'Riwayat Pembelian'],
                 [
                     'route' => 'purchaseApproval.index',
