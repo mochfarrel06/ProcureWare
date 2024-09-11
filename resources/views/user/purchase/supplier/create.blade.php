@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('user.purchase.layouts.master')
 
 @section('title-page')
     Create
@@ -45,7 +45,7 @@
                             id="address" value="{{ old('address') }}" placeholder="Masukkan alamat supplier">
                     </div>
 
-                    <div class="mt-3">
+                    <div class="mt-5">
                         <button type="submit" id="submit-btn" class="btn btn-primary">Tambah</button>
                         <a href="{{ route('supplier.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>

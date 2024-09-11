@@ -26,7 +26,8 @@ class MaterialUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:materials,code,' . $materialId],
-            'description' => ['nullable', 'string']
+            'description' => ['nullable', 'string'],
+            'unit' => ['required', 'string', 'max:255'],
         ];
     }
 
@@ -36,6 +37,7 @@ class MaterialUpdateRequest extends FormRequest
             'name.required' => 'Nama material tidak boleh kosong',
             'code.required' => 'Kode material tidak boleh kosong',
             'code.unique' => 'Kode material sudah di tambahkan',
+            'unit.required' => 'Satuan material tidak boleh kosong',
         ];
     }
 }

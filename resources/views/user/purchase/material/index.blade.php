@@ -20,7 +20,8 @@
                         <th>ID</th>
                         <th>Nama Material</th>
                         <th>Kode Material</th>
-                        <th>Deskripsi</th>
+                        <th>Satuan Material</th>
+                        <th>Deskripsi Material</th>
                         @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                             <th>Aksi</th>
                         @endif
@@ -33,6 +34,7 @@
                             <td class="index">{{ $loop->index + 1 }}</td>
                             <td>{{ $material->name ?? '' }}</td>
                             <td>{{ $material->code ?? '' }}</td>
+                            <td>{{ $material->unit ?? '' }}</td>
                             <td>{{ $material->description ?? '' }}</td>
                             @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                                 <td>

@@ -35,6 +35,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="unit">Satuan Material</label>
+                        <input type="text" class="form-control @error('unit') is-invalid @enderror" name="unit"
+                            id="unit" value="{{ old('unit', $material->unit) }}">
+                    </div>
+
+                    <div class="form-group">
                         <label for="description">Deskripsi Material</label>
                         <input type="text" class="form-control @error('description') is-invalid @enderror"
                             name="description" id="description" value="{{ old('description', $material->description) }}">

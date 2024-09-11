@@ -34,8 +34,10 @@ class MaterialController extends Controller
             $material = new Material([
                 'name' => $request->name,
                 'code' => $request->code,
+                'unit' => $request->unit,
                 'description' => $request->description,
             ]);
+
             $material->save();
 
             session()->flash('success', 'Berhasil menambahkan master material');
