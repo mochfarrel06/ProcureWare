@@ -5,4 +5,4 @@
     <div class="sidebar-brand-text mx-3">{{ $name }}</div>
 </a>
 
-<hr class="sidebar-divider my-0">
+<hr class="sidebar-divider my-3">

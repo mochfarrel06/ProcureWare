@@ -69,7 +69,7 @@
 
                                             <!-- Card untuk Modul Gudang -->
                                             <div class="col-xl-6 col-md-6 mb-4">
-                                                <a href="" class="text-decoration-none">
+                                                <a href="{{ route('warehouse.index') }}" class="text-decoration-none">
                                                     <div class="card border-left-success shadow h-100 py-2">
                                                         <div class="card-body">
                                                             <div class="row no-gutters align-items-center">

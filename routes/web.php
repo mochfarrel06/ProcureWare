@@ -7,6 +7,8 @@ use App\Http\Controllers\Purchase\PurchaseApprovalController;
 use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Purchase\PurchaseHistoryController;
 use App\Http\Controllers\Purchase\SupplierController;
+use App\Http\Controllers\Warehouse\StockController;
+use App\Http\Controllers\Warehouse\WarehouseItemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +57,24 @@ Route::middleware(['auth', 'role:staff_purchase,manager_a,manager_b'])->group(fu
 
     // History Purchase
     Route::get('purchase-history', [PurchaseHistoryController::class, 'index'])->name('purchaseHistory.index');
+});
+
+Route::middleware(['auth', 'role:manager_a,staff_warehouse'])->group(function () {
+
+    // Warehouse
+    Route::get('warehouse', [WarehouseItemController::class, 'index'])->name('warehouse.index');
+    Route::get('warehouse/create', [WarehouseItemController::class, 'create'])->name('warehouse.create');
+    Route::post('warehouse', [WarehouseItemController::class, 'store'])->name('warehouse.store');
+    Route::get('warehouse/{id}/show', [WarehouseItemController::class, 'show'])->name('warehouse.show');
+
+    // Route untuk menampilkan form dan hasil laporan stok
+    Route::get('report', [WarehouseItemController::class, 'report'])->name('warehouse.report');
+
+    // Route untuk mengekspor laporan stok ke Excel
+    Route::get('report/export', [WarehouseItemController::class, 'exportReport'])->name('warehouse.report.export');
+
+
+    Route::get('stock', [StockController::class, 'index'])->name('stock.index');
 });
 
 
