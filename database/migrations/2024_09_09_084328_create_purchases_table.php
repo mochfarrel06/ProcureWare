@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('material_id')->constrained('materials')->onDelete('cascade');
-            $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
+            $table->foreignId('purchase_request_id')->constrained('purchase_requests');
+            $table->foreignId('processed_by')->constrained('users');
             $table->date('purchase_date');
-            $table->integer('quantity');
-            $table->enum('approval_status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->date('approved_date')->nullable();
+            $table->date('expected_delivery_date');
+            $table->float('total_price');
+            $table->enum('status', ['in_process', 'delivered', 'canceled'])->default('in_process');
             $table->timestamps();
         });
     }

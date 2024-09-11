@@ -18,23 +18,24 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="material_id">Material</label>
-                        <select class="form-control @error('material_id') is-invalid @enderror" name="material_id"
-                            id="material_id">
-                            <option value="">-- Pilih Material --</option>
-                            @foreach ($materials as $material)
-                                <option value="{{ $material->id }}">{{ $material->name }}</option>
+                        <label for="purchase_request_id">Permintaan Pembelian</label>
+                        <select class="form-control @error('purchase_request_id') is-invalid @enderror"
+                            name="purchase_request_id" id="purchase_request_id">
+                            <option value="">-- Pilih Permintaan Pembelian --</option>
+                            @foreach ($purchaseRequests as $purchaseRequest)
+                                <option value="{{ $purchaseRequest->id }}">{{ $purchaseRequest->id }} -
+                                    {{ $purchaseRequest->supplier->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="supplier_id">Supplier</label>
-                        <select class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id"
-                            id="supplier_id">
-                            <option value="">-- Pilih Supplier --</option>
-                            @foreach ($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                        <label for="processed_by">Diproses oleh</label>
+                        <select class="form-control @error('processed_by') is-invalid @enderror" name="processed_by"
+                            id="processed_by">
+                            <option value="">-- Pilih Diproses oleh --</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -46,9 +47,28 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="quantity">Jumlah Pembelian</label>
-                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity"
-                            id="quantity" value="{{ old('quantity') }}" placeholder="Masukkan Jumlah Pembelian">
+                        <label for="expected_delivery_date">Tanggal Pengiriman yang diharapkan</label>
+                        <input type="date" class="form-control @error('expected_delivery_date') is-invalid @enderror"
+                            name="expected_delivery_date" id="expected_delivery_date"
+                            value="{{ old('expected_delivery_date') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total_price">Total harga</label>
+                        <input type="number" class="form-control @error('total_price') is-invalid @enderror"
+                            name="total_price" id="total_price" value="{{ old('total_price') }}"
+                            placeholder="Masukkan Jumlah Pembelian">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status"
+                            class="form-control @error('total_price') is-invalid @enderror">
+                            <option value="">-- Status --</option>
+                            <option value="in_process">In Process</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="canceled">Canceled</option>
+                        </select>
                     </div>
 
                     <div class="mt-5">

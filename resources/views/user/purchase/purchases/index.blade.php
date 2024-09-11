@@ -18,12 +18,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Material</th>
-                        <th>Supplier</th>
                         <th>Tanggal Pembelian</th>
-                        <th>Jumlah</th>
-                        <th>Status Persetujuan</th>
-                        <th>Tanggal Persetujuan</th>
+                        <th>Supplier</th>
+                        <th>Total Harga</th>
+                        <th>Status</th>
                         @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                             <th>Aksi</th>
                         @endif
@@ -34,26 +32,22 @@
                     @foreach ($purchases as $purchase)
                         <tr>
                             <td class="index">{{ $loop->index + 1 }}</td>
-                            <td>{{ $purchase->material->name ?? '' }}</td>
-                            <td>{{ $purchase->supplier->name ?? '' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($purchase->purchase_date)->locale('id')->isoFormat('D MMMM YYYY') }}
-                            </td>
-                            <td>{{ $purchase->quantity ?? '' }}</td>
+                            <td>{{ $purchase->purchase_date ?? '' }}</td>
+                            <td>{{ $purchase->purchaseRequest->supplier->name ?? '' }}</td>
+                            <td>{{ $purchase->total_price ?? '' }}</td>
                             <td>
                                 <a
                                     class="btn
-                                @if ($purchase->approval_status == 'pending') btn-warning
-                                @elseif ($purchase->approval_status == 'approved')
+                                @if ($purchase->status == 'in_process') btn-warning
+                                @elseif ($purchase->status == 'delivered')
                                     btn-success
-                                @elseif ($purchase->approval_status == 'rejected')
+                                @elseif ($purchase->status == 'canceled')
                                     btn-danger
                                 @else
                                     btn-secondary @endif
                             ">
-                                    {{ ucfirst($purchase->approval_status) ?? 'Unknown' }}
+                                    {{ ucfirst($purchase->status) ?? 'Unknown' }}
                                 </a>
-                            </td>
-                            <td>{{ \Carbon\Carbon::parse($purchase->approved_date)->locale('id')->isoFormat('D MMMM YYYY') }}
                             </td>
                             @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                                 <td>

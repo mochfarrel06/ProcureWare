@@ -4,45 +4,51 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchase\PurchaseCreateRequest;
+use App\Http\Requests\Purchase\PurchaseMaterialCreateRequest;
 use App\Http\Requests\Purchase\PurchaseUpdateRequest;
 use App\Models\Material;
 use App\Models\Purchase;
+use App\Models\PurchaseRequest;
 use App\Models\Supplier;
+use App\Models\User;
 
 class PurchaseController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
-        $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
+    //     $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    // }
 
     public function index()
     {
-        $purchases = Purchase::with(['supplier', 'material'])->get();
+        $purchases = Purchase::with(['purchaseRequest', 'user'])->get();
 
         return view('user.purchase.purchases.index', compact('purchases'));
     }
 
     public function create()
     {
-        $materials = Material::all();
-        $suppliers = Supplier::all();
-        return view('user.purchase.purchases.create', compact('materials', 'suppliers'));
+        $purchaseRequests = PurchaseRequest::where('status', 'approved')->get();
+        $users = User::all();
+        return view('user.purchase.purchases.create', compact('purchaseRequests', 'users'));
     }
 
-    public function store(PurchaseCreateRequest $request)
+    public function store(PurchaseMaterialCreateRequest $request)
     {
         try {
-            $material = Material::findOrFail($request->material_id);
-            $supplier = Supplier::findOrFail($request->supplier_id);
+            // $material = Material::findOrFail($request->material_id);
+            // $supplier = Supplier::findOrFail($request->supplier_id);
+            $purchaseRequest = PurchaseRequest::findOrFail($request->purchase_request_id);
+            $user = User::findOrFail($request->processed_by);
 
             $purchase = new Purchase([
-                'material_id' => $material->id,
-                'supplier_id' => $supplier->id,
+                'purchase_request_id' => $purchaseRequest->id,
+                'processed_by' => $user->id,
                 'purchase_date' => $request->purchase_date,
-                'quantity' => $request->quantity,
-                'approval_status' => 'pending',
+                'expected_delivery_date' => $request->expected_delivery_date,
+                'total_price' => $request->total_price,
+                'status' => $request->status
             ]);
 
             $purchase->save();

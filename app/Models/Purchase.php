@@ -9,26 +9,23 @@ class Purchase extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'material_id',
-        'supplier_id',
+        'purchase_request_id',
+        'processed_by',
         'purchase_date',
-        'quantity',
-        'approval_status',
-        'approved_date'
+        'expected_delivery_date',
+        'total_price',
+        'status',
     ];
 
-    public function material()
+    // Relasi dengan PurchaseRequest
+    public function purchaseRequest()
     {
-        return $this->belongsTo(Material::class);
+        return $this->belongsTo(PurchaseRequest::class);
     }
 
-    public function supplier()
+    // Relasi dengan User (untuk processed_by)
+    public function user()
     {
-        return $this->belongsTo(Supplier::class);
-    }
-
-    public function warehouseItems()
-    {
-        return $this->hasMany(WarehouseItem::class);
+        return $this->belongsTo(User::class);
     }
 }
