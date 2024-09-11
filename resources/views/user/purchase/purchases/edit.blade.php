@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('user.purchase.layouts.master')
 
 @section('title-page')
     Edit
@@ -7,15 +7,11 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Tambah Data Barang'" :breadcrumbs="[
-            ['title' => 'Dashboard', 'url' => route('admin.dashboard')],
-            ['title' => 'Data Barang', 'url' => route('admin.item.index')],
-            ['title' => 'Tambah'],
-        ]" /> --}}
+        <x-content.heading-page :title="'Lihat Daftar Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('dashboard')], ['title' => 'Edit']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tambah Pembelian'" :icon="'fas fa-solid fa-plus'" />
+            <x-content.table-header :title="'Edit Daftar Pembelian'" :icon="'fas fa-solid fa-edit'" />
 
             <x-content.card-body>
                 <form id="main-form" action="{{ route('purchases.update', $purchase->id) }}" method="POST">
@@ -61,7 +57,7 @@
                             id="quantity" value="{{ old('quantity', $purchase->quantity) }}">
                     </div>
 
-                    <div class="mt-3">
+                    <div class="mt-5">
                         <button type="submit" id="submit-btn" class="btn btn-success">Edit</button>
                         <a href="{{ route('purchases.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>
@@ -94,13 +90,13 @@
                     if (response.success) {
                         // Flash message sukses
                         sessionStorage.setItem('success',
-                            'Jenis barang berhasil disubmit.');
+                            'Daftar Pembelian berhasil disubmit.');
                         window.location.href =
                             "{{ route('purchases.index') }}"; // Redirect to index page
                     } else if (response.info) {
                         // Flash message info
                         sessionStorage.setItem('info',
-                            'Tidak melakukan perubahan data pada jenis barang.');
+                            'Tidak melakukan perubahan data pada Daftar Pembelian.');
                         window.location.href =
                             "{{ route('purchases.index') }}"; // Redirect to index page
                     } else {

@@ -47,10 +47,10 @@ class PurchaseController extends Controller
 
             $purchase->save();
 
-            session()->flash('success', 'Berhasil menambahkan pembelian');
+            session()->flash('success', 'Berhasil menambahkan daftar pembelian barang');
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada proses pembelian: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada proses daftar pembelian barang: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -92,14 +92,14 @@ class PurchaseController extends Controller
             if ($purchase->isDirty()) {
                 $purchase->save();
 
-                session()->flash('success', 'Berhasil melakukan perubahan pada data barang');
+                session()->flash('success', 'Berhasil melakukan perubahan pada daftar pembelian');
                 return response()->json(['success' => true], 200);
             } else {
-                session()->flash('info', 'Tidak melakukan perubahan pada data barang');
+                session()->flash('info', 'Tidak melakukan perubahan pada daftar pembelian');
                 return response()->json(['info' => true], 200);
             }
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada data barang: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada daftar pembelian: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -110,7 +110,7 @@ class PurchaseController extends Controller
             $purchase = Purchase::findOrFail($id);
             $purchase->delete();
 
-            return response(['status' => 'success', 'message' => 'Berhasil menghapus data barang']);
+            return response(['status' => 'success', 'message' => 'Berhasil menghapus daftar pembelian']);
         } catch (\Exception $e) {
             // Menangani exception jika terjadi kesalahan saat menghapus
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);

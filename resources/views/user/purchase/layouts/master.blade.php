@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    @include('user.layouts.head')
+    @include('user.purchase.layouts.head')
 </head>
 
 <body id="page-top">
@@ -10,7 +10,7 @@
     <!-- Page Wrapper -->
     <x-master.wrapper>
 
-        @include('user.layouts.sidebar')
+        @include('user.purchase.layouts.sidebar')
 
         <!-- Content Wrapper -->
         <x-master.content-wrapper>
@@ -27,14 +27,14 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            @include('user.layouts.footer')
+            @include('user.purchase.layouts.footer')
             <!-- End of Footer -->
         </x-master.content-wrapper>
         <!-- End of Content Wrapper -->
     </x-master.wrapper>
     <!-- End of Page Wrapper -->
 
-    @include('user.layouts.scripts')
+    @include('user.purchase.layouts.scripts')
 </body>
 
 </html>

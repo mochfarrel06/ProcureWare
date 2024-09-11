@@ -5,14 +5,16 @@
     <!-- End sidebar title -->
 
     <!-- Nav item dashboard -->
-    <x-sidebar.nav-item route="dashboard" icon="fa-tachometer-alt" label="Dashboard" />
+    @if (auth()->user()->role == 'manager_a' || auth()->user()->role == 'manager_b')
+        <x-sidebar.nav-item route="dashboard" icon="fa-tachometer-alt" label="Dashboard" />
+    @endif
     <!-- End nav item dashboard -->
 
     <!-- Nav item barang -->
     @if (auth()->user()->role == 'manager_a' ||
             auth()->user()->role == 'manager_b' ||
             auth()->user()->role == 'staff_purchase')
-        <x-sidebar.nav-item title="Master" icon="fa-shop" label="Daftar Pembelian" collapseId="collapseItem"
+        <x-sidebar.nav-item title="Master" icon="fa-shopping-cart" label="Daftar Pembelian" collapseId="collapseItem"
             :routes="['purchases.*', 'material.*', 'supplier.*', 'purchaseApproval.*', 'purchaseHistory.*']" :subItems="[
                 ['route' => 'purchases.index', 'label' => 'Daftar Pembelian'],
                 ['route' => 'material.index', 'label' => 'Master Material'],
@@ -26,14 +28,6 @@
             ]" />
     @endif
 
-    @if (auth()->user()->role == 'manager_a' || auth()->user()->role == 'staff_warehouse')
-        <x-sidebar.nav-item title="Master" icon="fa-shop" label="Gudang" collapseId="collapseItem" :routes="['warehouse.*']"
-            :subItems="[['route' => 'warehouse.index', 'label' => 'Gudang']]" />
-    @endif
-
     <!-- End nav item -->
-
-    <!-- Divider -->
-    {{-- <hr class="sidebar-divider d-none d-md-block"> --}}
 
 </x-sidebar.layout>

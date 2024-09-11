@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('user.purchase.layouts.master')
 
 @section('title-page')
     Show
@@ -7,15 +7,11 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Tambah Data Barang'" :breadcrumbs="[
-            ['title' => 'Dashboard', 'url' => route('admin.dashboard')],
-            ['title' => 'Data Barang', 'url' => route('admin.item.index')],
-            ['title' => 'Tambah'],
-        ]" /> --}}
+        <x-content.heading-page :title="'Lihat Daftar Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('dashboard')], ['title' => 'Show']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tambah Pembelian'" :icon="'fas fa-solid fa-plus'" />
+            <x-content.table-header :title="'Lihat Daftar Pembelian'" :icon="'fas fa-solid fa-plus'" />
 
             <x-content.card-body>
                 <form>
@@ -24,13 +20,14 @@
                     <div class="form-group">
                         <label for="material_id">Material</label>
                         <input type="text" class="form-control @error('material_id') is-invalid @enderror"
-                            name="material_id" id="material_id" value="{{ $material->name }}" disabled>
+                            name="material_id" id="material_id" value="{{ $material->code }} - {{ $material->name }}" disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="supplier_id">Supplier</label>
                         <input type="text" class="form-control @error('supplier_id') is-invalid @enderror"
-                            name="supplier_id" id="supplier_id" value="{{ $supplier->name }}" disabled>
+                            name="supplier_id" id="supplier_id" value="{{ $supplier->code }} - {{ $supplier->name }}"
+                            disabled>
                     </div>
 
                     <div class="form-group">

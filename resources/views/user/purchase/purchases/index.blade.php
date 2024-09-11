@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('user.purchase.layouts.master')
 
 @section('title-page')
     Pembelian
@@ -7,18 +7,18 @@
 @section('content')
     <x-content.container-fluid>
 
-        <x-content.heading-page :title="'Halaman Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('purchases.index')], ['title' => 'Jenis Barang']]" />
+        <x-content.heading-page :title="'Halaman Daftar Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('purchases.index')], ['title' => 'Jenis Barang']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tabel Pembelian'" :icon="'fas fa-solid fa-shop'" :addRoute="'purchases.create'" />
+            <x-content.table-header :title="'Tabel Daftar Pembelian'" :icon="'fas fa-solid fa-shopping-cart'" :addRoute="'purchases.create'" />
 
             <x-content.table-body>
 
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Materials</th>
+                        <th>Material</th>
                         <th>Supplier</th>
                         <th>Tanggal Pembelian</th>
                         <th>Jumlah</th>
