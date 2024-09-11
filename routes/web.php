@@ -6,6 +6,7 @@ use App\Http\Controllers\Purchase\MaterialController;
 use App\Http\Controllers\Purchase\PurchaseApprovalController;
 use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Purchase\PurchaseHistoryController;
+use App\Http\Controllers\Purchase\PurchaseRequestController;
 use App\Http\Controllers\Purchase\SupplierController;
 use App\Http\Controllers\Warehouse\StockController;
 use App\Http\Controllers\Warehouse\WarehouseItemController;
@@ -49,6 +50,9 @@ Route::middleware(['auth', 'role:staff_purchase,manager_a,manager_b'])->group(fu
 
     // Supplier
     Route::resource('supplier', SupplierController::class);
+
+    // Purchase Request
+    Route::resource('purchase-request', PurchaseRequestController::class);
 
     // Approval Manager
     Route::get('purchase-approval', [PurchaseApprovalController::class, 'index'])->name('purchaseApproval.index');

@@ -24,9 +24,7 @@ class PurchaseCreateRequest extends FormRequest
         return [
             'material_id' => ['required', 'exists:materials,id'],
             'supplier_id' => ['required', 'exists:suppliers,id'],
-            'purchase_date' => ['required', 'date'],
-            'quantity' => ['required', 'numeric', 'min:0'],
-            'approved_date' => ['nullable', 'date']
+            'quantity' => ['required', 'numeric'],
         ];
     }
 
@@ -35,7 +33,6 @@ class PurchaseCreateRequest extends FormRequest
         return [
             'material_id.required' => 'Material tidak boleh kosong',
             'supplier_id.required' => 'Supplier tidak boleh kosong',
-            'purchase_date.required' => 'Tanggal pembelian tidak boleh kosong',
             'quantity.required' => 'Jumlah pembelian tidak boleh kosong'
         ];
     }

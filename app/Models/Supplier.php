@@ -24,4 +24,9 @@ class Supplier extends Model
     {
         return $this->hasMany(WarehouseItem::class);
     }
+
+    public function purchaseRequest()
+    {
+        return $this->hasMany(PurchaseRequest::class);
+    }
 }

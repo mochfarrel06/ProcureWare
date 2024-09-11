@@ -24,4 +24,9 @@ class Material extends Model
     {
         return $this->hasMany(Stock::class);
     }
+
+    public function purchaseRequest()
+    {
+        return $this->hasMany(PurchaseRequest::class);
+    }
 }
