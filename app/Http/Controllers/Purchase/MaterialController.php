@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchase\MaterialCreateRequest;
 use App\Http\Requests\Purchase\MaterialUpdateRequest;
 use App\Models\Material;
-use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {

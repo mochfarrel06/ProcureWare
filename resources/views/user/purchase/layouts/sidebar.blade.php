@@ -14,8 +14,8 @@
     @if (auth()->user()->role == 'manager_a' ||
             auth()->user()->role == 'manager_b' ||
             auth()->user()->role == 'staff_purchase')
-        <x-sidebar.nav-item title="Master" icon="fa-shopping-cart" label="Daftar Pembelian" collapseId="collapseItem"
-            :routes="[
+        <x-sidebar.nav-item title="Modul Pembelian" icon="fa-shopping-cart" label="Modul Pembelian"
+            collapseId="collapseItem" :routes="[
                 'material.*',
                 'supplier.*',
                 'purchase-request.*',
