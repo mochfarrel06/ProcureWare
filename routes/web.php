@@ -9,6 +9,7 @@ use App\Http\Controllers\Purchase\PurchaseHistoryController;
 use App\Http\Controllers\Purchase\PurchaseItemController;
 use App\Http\Controllers\Purchase\PurchaseRequestController;
 use App\Http\Controllers\Purchase\SupplierController;
+use App\Http\Controllers\Warehouse\DeliveryController;
 use App\Http\Controllers\Warehouse\StockController;
 use App\Http\Controllers\Warehouse\WarehouseItemController;
 use Illuminate\Support\Facades\Route;
@@ -83,6 +84,8 @@ Route::middleware(['auth', 'role:manager_a,staff_warehouse'])->group(function ()
 
 
     Route::get('stock', [StockController::class, 'index'])->name('stock.index');
+
+    Route::resource('delivery', DeliveryController::class);
 });
 
 

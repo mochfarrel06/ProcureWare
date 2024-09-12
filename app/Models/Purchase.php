@@ -28,4 +28,9 @@ class Purchase extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function delivery()
+    {
+        return $this->hasMany(Delivery::class);
+    }
 }
