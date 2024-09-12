@@ -19,7 +19,6 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-
         return view('user.purchase.supplier.index', compact('suppliers'));
     }
 
@@ -40,10 +39,10 @@ class SupplierController extends Controller
 
             $supplier->save();
 
-            session()->flash('success', 'Berhasil menambahkan data barang masuk');
+            session()->flash('success', 'Berhasil menambahkan data supplier');
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada proses pembelian: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada proses data supplier: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -73,14 +72,14 @@ class SupplierController extends Controller
             if ($supplier->isDirty()) {
                 $supplier->save();
 
-                session()->flash('success', 'Berhasil melakukan perubahan pada data barang');
+                session()->flash('success', 'Berhasil melakukan perubahan pada data supplier');
                 return response()->json(['success' => true], 200);
             } else {
-                session()->flash('info', 'Tidak melakukan perubahan pada data barang');
+                session()->flash('info', 'Tidak melakukan perubahan pada data supplier');
                 return response()->json(['info' => true], 200);
             }
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada data barang: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada data supplier: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -91,7 +90,7 @@ class SupplierController extends Controller
             $supplier = Supplier::findOrFail($id);
             $supplier->delete();
 
-            return response(['status' => 'success', 'message' => 'Berhasil menghapus data barang']);
+            return response(['status' => 'success', 'message' => 'Berhasil menghapus data supplier']);
         } catch (\Exception $e) {
             // Menangani exception jika terjadi kesalahan saat menghapus
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);

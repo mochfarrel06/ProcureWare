@@ -17,13 +17,11 @@ class Purchase extends Model
         'status',
     ];
 
-    // Relasi dengan PurchaseRequest
     public function purchaseRequest()
     {
         return $this->belongsTo(PurchaseRequest::class);
     }
 
-    // Relasi dengan User (untuk processed_by)
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -37,5 +35,10 @@ class Purchase extends Model
     public function material()
     {
         return $this->belongsTo(Material::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
     }
 }

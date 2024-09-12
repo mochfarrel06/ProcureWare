@@ -1,17 +1,17 @@
 @extends('user.purchase.layouts.master')
 
 @section('title-page')
-    supplier
+    Supplier
 @endsection
 
 @section('content')
     <x-content.container-fluid>
 
-        <x-content.heading-page :title="'Halaman Supplier'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('supplier.index')], ['title' => 'Jenis Barang']]" />
+        <x-content.heading-page :title="'Halaman Master Supplier'" :breadcrumbs="[['title' => 'Supplier']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tabel Supplier'" :icon="'fas fa-solid fa-shop'" :addRoute="'supplier.create'" />
+            <x-content.table-header :title="'Tabel Master Supplier'" :icon="'fas fa-solid fa-boxes-packing'" :addRoute="'supplier.create'" />
 
             <x-content.table-body>
 
