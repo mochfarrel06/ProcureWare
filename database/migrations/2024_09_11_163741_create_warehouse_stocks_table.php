@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('warehouse_stocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('material_id')->constrained('materials'); // Material yang ada di gudang
+            $table->unsignedBigInteger('material_id');
+
             $table->integer('quantity')->default(0); // Jumlah stok yang ada
+
             $table->timestamps();
+            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
         });
     }
 

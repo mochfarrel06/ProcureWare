@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('delivery_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('delivery_id')->constrained('deliveries'); // Terkait dengan penerimaan
-            $table->foreignId('material_id')->constrained('materials'); // Material yang diterima
-            $table->foreignId('supplier_id')->constrained('suppliers'); // Supplier yang memberikan barang
+            $table->unsignedBigInteger('delivery_id');
+            $table->unsignedBigInteger('supplier_id');
+
+            $table->date('arrival_date');
             $table->integer('quantity'); // Jumlah material yang diterima
             $table->enum('condition', ['good', 'bad']); // Kondisi barang
             $table->string('unique_code')->unique(); // Nomor unik atau barcode
             $table->string('storage_location'); // Lokasi penyimpanan di gudang
+
             $table->timestamps();
+            $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('cascade');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
         });
     }
 

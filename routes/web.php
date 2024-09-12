@@ -14,6 +14,7 @@ use App\Http\Controllers\Warehouse\DeliveryController;
 use App\Http\Controllers\Warehouse\DeliveryItemController;
 use App\Http\Controllers\Warehouse\StockController;
 use App\Http\Controllers\Warehouse\WarehouseItemController;
+use App\Http\Controllers\Warehouse\WarehouseStockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -94,6 +95,8 @@ Route::middleware(['auth', 'role:manager_a,staff_warehouse'])->group(function ()
     Route::resource('delivery', DeliveryController::class);
 
     Route::resource('delivery-item', DeliveryItemController::class);
+
+    Route::get('warehouse-stock', [WarehouseStockController::class, 'index'])->name('warehouse-stock.index');
 });
 
 

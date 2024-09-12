@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class WarehouseStock extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'material_id',
+        'quantity',
+    ];
+
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
 }

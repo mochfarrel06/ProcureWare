@@ -23,7 +23,6 @@ class DeliveryItemCreateRequest extends FormRequest
     {
         return [
             'delivery_id' => 'required|exists:deliveries,id',
-            'material_id' => 'required|exists:materials,id',
             'supplier_id' => 'required|exists:suppliers,id',
             'quantity' => 'required|integer',
             'condition' => 'required|in:good,damaged',
@@ -35,13 +34,12 @@ class DeliveryItemCreateRequest extends FormRequest
     public function messages()
     {
         return [
-            'delivery_id' => 'Delivery tidak boleh kosong',
-            'material_id' => 'material tidak boleh kosong',
-            'supplier_id' => 'supplier Pembelian tidak boleh kosong',
-            'quantity' => 'jumlah Pembelian tidak boleh kosong',
-            'condition' => 'kondisi Pembelian tidak boleh kosong',
-            'unique_code' => 'nomor tidak boleh kosong',
-            'storage_location' => 'Lokasi tidak boleh kosong',
+            'delivery_id.required' => 'Delivery tidak boleh kosong',
+            'supplier_id.required' => 'supplier Pembelian tidak boleh kosong',
+            'quantity.required' => 'jumlah Pembelian tidak boleh kosong',
+            'condition.required' => 'kondisi Pembelian tidak boleh kosong',
+            'unique_code.required' => 'nomor tidak boleh kosong',
+            'storage_location.required' => 'Lokasi tidak boleh kosong',
         ];
     }
 }

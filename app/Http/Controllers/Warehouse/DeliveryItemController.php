@@ -9,6 +9,7 @@ use App\Models\Delivery;
 use App\Models\DeliveryItem;
 use App\Models\Material;
 use App\Models\Supplier;
+use App\Models\WarehouseStock;
 use Illuminate\Http\Request;
 
 class DeliveryItemController extends Controller
@@ -18,7 +19,7 @@ class DeliveryItemController extends Controller
      */
     public function index()
     {
-        $deliveryItems = DeliveryItem::with(['delivery', 'material', 'supplier'])->get();
+        $deliveryItems = DeliveryItem::with(['delivery', 'supplier'])->get();
         return view('user.warehouse.delivery-item.index', compact('deliveryItems'));
     }
 
@@ -27,10 +28,9 @@ class DeliveryItemController extends Controller
      */
     public function create()
     {
-        $deliveries = Delivery::all();
-        $materials = Material::all();
+        $deliveries = Delivery::whereDoesntHave('deliveryItems')->get();
         $suppliers = Supplier::all();
-        return view('user.warehouse.delivery-item.create', compact('deliveries', 'materials', 'suppliers'));
+        return view('user.warehouse.delivery-item.create', compact('deliveries', 'suppliers'));
     }
 
     /**
@@ -40,13 +40,12 @@ class DeliveryItemController extends Controller
     {
         try {
             $delivery = Delivery::findOrFail($request->delivery_id);
-            $material = Material::findOrFail($request->material_id);
             $supplier = Supplier::findOrFail($request->supplier_id);
 
             $deliveryItem = new DeliveryItem([
                 'delivery_id' => $delivery->id,
-                'material_id' => $material->id,
                 'supplier_id' => $supplier->id,
+                'arrival_date' => now(),
                 'quantity' => $request->quantity,
                 'condition' => $request->condition,
                 'unique_code' => $request->unique_code,
@@ -55,10 +54,23 @@ class DeliveryItemController extends Controller
 
             $deliveryItem->save();
 
-            session()->flash('success', 'Berhasil menambahkan daftar pembelian barang');
+            $material = Material::where('code',  $delivery->purchase->purchaseRequest->material->code)->first();
+            if ($material) {
+                $warehouseStock = WarehouseStock::where('material_id', $material->id)->first();
+                if ($warehouseStock) {
+                    $warehouseStock->increment('quantity', $deliveryItem['quantity']);
+                } else {
+                    WarehouseStock::create([
+                        'material_id' => $material->id,
+                        'quantity' => $deliveryItem['quantity'],
+                    ]);
+                }
+            }
+
+            session()->flash('success', 'Berhasil menambahkan Item Pembelian');
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada proses daftar pembelian barang: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada proses Item Pembelian: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }

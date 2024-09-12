@@ -14,11 +14,10 @@
     <!-- Nav item barang -->
     @if (auth()->user()->role == 'manager_a' || auth()->user()->role == 'staff_warehouse')
         <x-sidebar.nav-item title="Modul Gudang" icon="fa-warehouse" label="Modul Gudang" collapseId="collapseItem"
-            :routes="['warehouse.*', 'stock.*', 'delivery.*', 'delivery-item.*']" :subItems="[
-                ['route' => 'warehouse.index', 'label' => 'Gudang'],
-                ['route' => 'stock.index', 'label' => 'stock'],
+            :routes="['delivery.*', 'delivery-item.*', 'warehouse-stock.*']" :subItems="[
                 ['route' => 'delivery.index', 'label' => 'Delivery'],
-                ['route' => 'delivery-item.index', 'label' => 'delivery item'],
+                ['route' => 'delivery-item.index', 'label' => 'Delivery Item'],
+                ['route' => 'warehouse-stock.index', 'label' => 'Warehouse stok'],
             ]" />
     @endif
     <!-- End nav item -->
