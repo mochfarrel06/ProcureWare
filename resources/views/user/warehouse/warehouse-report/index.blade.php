@@ -7,7 +7,7 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Halaman Item Penerimaan Barang'" :breadcrumbs="[['title' => 'Delivery Item']]" /> --}}
+        <x-content.heading-page :title="'Halaman Laporan Gudang'" :breadcrumbs="[['title' => 'Warehouse Report']]" />
 
         <x-content.table-container>
 

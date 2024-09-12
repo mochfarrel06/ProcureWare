@@ -6,12 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Warehouse\DeliveryCreateRequest;
 use App\Models\Delivery;
 use App\Models\Purchase;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DeliveryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:manager_a,staff_warehouse'])->only('index');
+        $this->middleware(['auth', 'role:staff_warehouse'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */

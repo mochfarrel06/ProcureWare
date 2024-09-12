@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 
 class WarehouseItemController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:manager_a,staff_warehouse'])->only('index');
+        $this->middleware(['auth', 'role:staff_warehouse'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */

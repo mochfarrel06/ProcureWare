@@ -39,7 +39,8 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Selamat datang, {{ Auth::user()->name }}</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Selamat datang ya, {{ Auth::user()->name }}
+                                        </h1>
                                     </div>
 
                                     <!-- Kondisi untuk Manager A dan Manager B -->
@@ -69,7 +70,7 @@
 
                                             <!-- Card untuk Modul Gudang -->
                                             <div class="col-xl-6 col-md-6 mb-4">
-                                                <a href="{{ route('warehouse.index') }}" class="text-decoration-none">
+                                                <a href="{{ route('delivery.index') }}" class="text-decoration-none">
                                                     <div class="card border-left-success shadow h-100 py-2">
                                                         <div class="card-body">
                                                             <div class="row no-gutters align-items-center">
