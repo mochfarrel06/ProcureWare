@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->role === 'staff';
     }
+
+    public function purchaseRequest()
+    {
+        return $this->hasMany(PurchaseRequest::class);
+    }
 }

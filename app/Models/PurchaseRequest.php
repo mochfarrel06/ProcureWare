@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PurchaseRequest extends Model
 {
     use HasFactory;
-    protected $table = 'purchase_requests'; // Nama tabel
+    protected $table = 'purchase_requests';
     protected $fillable = [
         'user_id',
         'material_id',
@@ -16,7 +16,6 @@ class PurchaseRequest extends Model
         'quantity',
         'status',
         'request_date',
-        'approved_at'
     ];
 
     // Relasi ke staff (user) yang melakukan permintaan pembelian

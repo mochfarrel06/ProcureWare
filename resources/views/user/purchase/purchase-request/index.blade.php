@@ -7,18 +7,18 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Halaman Daftar Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('purchases.index')], ['title' => 'Jenis Barang']]" /> --}}
+        <x-content.heading-page :title="'Halaman Permintaan Pembelian'" :breadcrumbs="[['title' => 'Purchase Request']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tabel Daftar Pembelian'" :icon="'fas fa-solid fa-shopping-cart'" :addRoute="'purchase-request.create'" />
+            <x-content.table-header :title="'Tabel Permintaan Pembelian'" :icon="'fas fa-solid fa-hourglass-start'" :addRoute="'purchase-request.create'" />
 
             <x-content.table-body>
 
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Staff</th>
+                        <th>No</th>
+                        <th>User</th>
                         <th>Material</th>
                         <th>Supplier</th>
                         <th>Jumlah</th>

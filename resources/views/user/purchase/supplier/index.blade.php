@@ -17,7 +17,7 @@
 
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Nama Supplier</th>
                         <th>Kode Supplier</th>
                         <th>Kontak</th>

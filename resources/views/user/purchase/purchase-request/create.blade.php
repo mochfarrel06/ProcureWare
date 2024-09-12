@@ -7,45 +7,58 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Tambah Daftar Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('dashboard')], ['title' => 'Create']]" /> --}}
+        <x-content.heading-page :title="'Tambah Permintaan Pembelian'" :breadcrumbs="[['title' => 'Purchase Request', 'url' => route('purchase-request.index')], ['title' => 'Create']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tambah Permintaan'" :icon="'fas fa-solid fa-plus'" />
+            <x-content.table-header :title="'Tambah Permintaan Pembelian'" :icon="'fas fa-solid fa-plus'" />
 
             <x-content.card-body>
                 <form id="main-form" action="{{ route('purchase-request.store') }}" method="POST">
                     @csrf
 
-                    <div class="form-group">
-                        <label for="material_id">Material</label>
-                        <select class="form-control @error('material_id') is-invalid @enderror" name="material_id"
-                            id="material_id">
-                            <option value="">-- Pilih Material --</option>
-                            @foreach ($materials as $material)
-                                <option value="{{ $material->id }}">{{ $material->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="material_id">Material</label>
+                                <select class="form-control @error('material_id') is-invalid @enderror" name="material_id"
+                                    id="material_id">
+                                    <option value="">-- Pilih Material --</option>
+                                    @foreach ($materials as $material)
+                                        <option value="{{ $material->id }}">{{ $material->code }} - {{ $material->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="supplier_id">Supplier</label>
+                                <select class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id"
+                                    id="supplier_id">
+                                    <option value="">-- Pilih Supplier --</option>
+                                    @foreach ($suppliers as $supplier)
+                                        <option value="{{ $supplier->id }}">{{ $supplier->code }} - {{ $supplier->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="supplier_id">Supplier</label>
-                        <select class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id"
-                            id="supplier_id">
-                            <option value="">-- Pilih Supplier --</option>
-                            @foreach ($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="quantity">Jumlah Pembelian</label>
+                                <input type="number" class="form-control @error('quantity') is-invalid @enderror"
+                                    name="quantity" id="quantity" value="{{ old('quantity') }}"
+                                    placeholder="Masukkan jumlah pembelian material">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="quantity">Jumlah Pembelian</label>
-                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity"
-                            id="quantity" value="{{ old('quantity') }}" placeholder="Masukkan Jumlah Pembelian">
-                    </div>
-
-                    <div class="mt-5">
+                    <div class="mt-4">
                         <button type="submit" id="submit-btn" class="btn btn-primary">Tambah</button>
                         <a href="{{ route('purchase-request.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>
@@ -78,7 +91,7 @@
                     success: function(response) {
                         if (response.success) {
                             sessionStorage.setItem('success',
-                                'Daftar Pembelian berhasil disubmit.');
+                                'Permintaan pembelian berhasil disubmit.');
                             window.location.href =
                                 "{{ route('purchase-request.index') }}"; // Redirect to index page
                         } else {
@@ -97,7 +110,7 @@
                         }
 
                         const message = response.responseJSON.message ||
-                            'Terdapat kesalahan pada proses Daftar Pembelian';
+                            'Terdapat kesalahan pada proses permintaan pembelian';
                         $('#flash-messages').html('<div class="alert alert-danger">' + message +
                             '</div>');
                     },
