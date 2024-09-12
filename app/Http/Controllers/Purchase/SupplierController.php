@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchase\SupplierCreateRequest;
 use App\Http\Requests\Purchase\SupplierUpdateRequest;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
-    //     $this->middleware(['auth', 'role:manager_b, staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
+        $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    }
 
     public function index()
     {

@@ -33,10 +33,6 @@ Route::get('/', function () {
     return view('user.auth.login');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -60,20 +56,14 @@ Route::middleware(['auth', 'role:staff_purchase,manager_a,manager_b'])->group(fu
     // Purchases
     Route::resource('purchases', PurchaseController::class);
 
-    // Purchase Item
-    Route::resource('purchase-item', PurchaseItemController::class);
-
     // Approval Manager
     Route::get('purchase-approval', [PurchaseApprovalController::class, 'index'])->name('purchaseApproval.index');
     Route::post('purchase-approval/{id}/approved', [PurchaseApprovalController::class, 'approved'])->name('purchaseApproval.approved');
     Route::post('purchase-approval/{id}/rejected', [PurchaseApprovalController::class, 'rejected'])->name('purchaseApproval.rejected');
 
+    // Report
     Route::get('purchase-report', [PurchaseReportController::class, 'index'])->name('purchase-report.index');
-    Route::get('purchase-report/create', [PurchaseReportController::class, 'create'])->name('purchase-report.create');
-    Route::post('purchase-report', [PurchaseReportController::class, 'store'])->name('purchase-report.store');
-
-    // History Purchase
-    Route::get('purchase-history', [PurchaseHistoryController::class, 'index'])->name('purchaseHistory.index');
+    Route::get('purchase-report/exportExcel', [PurchaseReportController::class, 'exportExcel'])->name('purchase-report.exportExcel');
 });
 
 Route::middleware(['auth', 'role:manager_a,staff_warehouse'])->group(function () {

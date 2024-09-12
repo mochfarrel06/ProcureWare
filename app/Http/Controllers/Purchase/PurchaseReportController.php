@@ -2,44 +2,46 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Exports\PurchaseOrderExport;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Purchase\PurchaseReportCreateRequest;
 use App\Models\Purchase;
-use App\Models\PurchaseReport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PurchaseReportController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        $reports = PurchaseReport::with('purchase')->get();
-        return view('user.purchase.purchase-report.index', compact('reports'));
+        $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index', 'getFilteredData', 'exportExcel');
     }
-
-    public function create()
+    public function getFilteredData($startDate, $endDate)
     {
-        $purchases = Purchase::all(); // Mendapatkan semua data pembelian
-        return view('user.purchase.purchase-report.create', compact('purchases'));
-    }
-
-    public function store(PurchaseReportCreateRequest $request)
-    {
-        try {
-            $purchase = Purchase::findOrFail($request->purchase_id);
-
-            $purchaseReport = new PurchaseReport([
-                'purchase_id' => $purchase->id,
-                'report_type' => $request->report_type,
-                'report_date' => $request->report_date,
-            ]);
-
-            $purchaseReport->save();
-
-            session()->flash('success', 'Berhasil menambahkan daftar pembelian barang');
-            return response()->json(['success' => true], 200);
-        } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada proses daftar pembelian barang: ' . $e->getMessage());
-            return response()->json(['error' => $e->getMessage()], 400);
+        if ($startDate && $endDate) {
+            $endDate = Carbon::parse($endDate)->addDay()->format('Y-m-d');
+            return Purchase::whereBetween('created_at', [$startDate, $endDate])->get();
         }
+
+        return collect();
+    }
+
+    public function index(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $purchases = $this->getFilteredData($startDate, $endDate);
+
+        return view('user.purchase.purchase-report.index', compact('purchases', 'startDate', 'endDate'));
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $purchases = $this->getFilteredData($startDate, $endDate);
+
+        return Excel::download(new PurchaseOrderExport($purchases), 'laporan_pembelian.xlsx');
     }
 }

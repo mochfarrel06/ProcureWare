@@ -9,11 +9,11 @@ use App\Models\Material;
 
 class MaterialController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
-    //     $this->middleware(['auth', 'role:manager_b, staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
+        $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    }
 
     public function index()
     {

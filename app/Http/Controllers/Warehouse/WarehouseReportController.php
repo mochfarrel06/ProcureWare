@@ -37,8 +37,8 @@ class WarehouseReportController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $ideliveryItems = $this->getFilteredData($startDate, $endDate);
+        $deliveryItems = $this->getFilteredData($startDate, $endDate);
 
-        return Excel::download(new WarehouseExport($ideliveryItems), 'laporan_data_gudang.xlsx');
+        return Excel::download(new WarehouseExport($deliveryItems), 'laporan_data_gudang.xlsx');
     }
 }

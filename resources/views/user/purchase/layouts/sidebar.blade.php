@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <x-sidebar.layout>
     <!-- Sidebar title -->
-    <x-sidebar.title :name="'ProcureWare'" :icon="'fas fa-solid fa-book'" :addRoute="'dashboard'" />
+    <x-sidebar.title :name="'ProcureWare'" :icon="'fas fa-solid fa-book'" :addRoute="'material.index'" />
     <!-- End sidebar title -->
 
     <!-- Nav item dashboard -->
@@ -15,20 +15,12 @@
             auth()->user()->role == 'manager_b' ||
             auth()->user()->role == 'staff_purchase')
         <x-sidebar.nav-item title="Modul Pembelian" icon="fa-shopping-cart" label="Modul Pembelian"
-            collapseId="collapseItem" :routes="[
-                'material.*',
-                'supplier.*',
-                'purchase-request.*',
-                'purchases.*',
-                'purchase-report.*',
-                'purchaseHistory.*',
-            ]" :subItems="[
+            collapseId="collapseItem" :routes="['material.*', 'supplier.*', 'purchase-request.*', 'purchases.*', 'purchase-report.*']" :subItems="[
                 ['route' => 'material.index', 'label' => 'Master Material'],
                 ['route' => 'supplier.index', 'label' => 'Master Supplier'],
                 ['route' => 'purchase-request.index', 'label' => 'Permintaan Pembelian'],
                 ['route' => 'purchases.index', 'label' => 'Daftar Pembelian'],
-                ['route' => 'purchase-report.index', 'label' => 'Laporan Pembelian'],
-                ['route' => 'purchaseHistory.index', 'label' => 'Riwayat Pembelian'],
+                ['route' => 'purchase-report.index', 'label' => 'Laporan'],
             ]" />
     @endif
 

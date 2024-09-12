@@ -4,25 +4,20 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Helpers\DateHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Purchase\PurchaseCreateRequest;
 use App\Http\Requests\Purchase\PurchaseMaterialCreateRequest;
 use App\Http\Requests\Purchase\PurchaseMaterialUpdateRequest;
-use App\Http\Requests\Purchase\PurchaseUpdateRequest;
-use App\Models\Material;
 use App\Models\Purchase;
 use App\Models\PurchaseRequest;
-use App\Models\Supplier;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
-    //     $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
+        $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    }
 
     public function addBusinessDays($startDate, $days)
     {
@@ -40,7 +35,6 @@ class PurchaseController extends Controller
 
         return $date;
     }
-
 
     public function index()
     {
@@ -154,7 +148,6 @@ class PurchaseController extends Controller
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
-
 
     public function destroy(string $id)
     {

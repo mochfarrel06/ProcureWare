@@ -8,11 +8,16 @@ use App\Http\Requests\Purchase\PurchaseUpdateRequest;
 use App\Models\Material;
 use App\Models\PurchaseRequest;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseRequestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:manager_a,manager_b,staff_purchase'])->only('index');
+        $this->middleware(['auth', 'role:manager_b,staff_purchase'])->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */
