@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Purchase;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchase\PurchaseCreateRequest;
 use App\Http\Requests\Purchase\PurchaseMaterialCreateRequest;
+use App\Http\Requests\Purchase\PurchaseMaterialUpdateRequest;
 use App\Http\Requests\Purchase\PurchaseUpdateRequest;
 use App\Models\Material;
 use App\Models\Purchase;
 use App\Models\PurchaseRequest;
 use App\Models\Supplier;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
@@ -37,18 +39,15 @@ class PurchaseController extends Controller
     public function store(PurchaseMaterialCreateRequest $request)
     {
         try {
-            // $material = Material::findOrFail($request->material_id);
-            // $supplier = Supplier::findOrFail($request->supplier_id);
             $purchaseRequest = PurchaseRequest::findOrFail($request->purchase_request_id);
-            $user = User::findOrFail($request->processed_by);
 
             $purchase = new Purchase([
                 'purchase_request_id' => $purchaseRequest->id,
-                'processed_by' => $user->id,
-                'purchase_date' => $request->purchase_date,
+                'user_id' => Auth::id(),
+                'purchase_date' => now(),
                 'expected_delivery_date' => $request->expected_delivery_date,
                 'total_price' => $request->total_price,
-                'status' => $request->status
+                'status' => 'in_process'
             ]);
 
             $purchase->save();
@@ -64,48 +63,44 @@ class PurchaseController extends Controller
     public function show(string $id)
     {
         $purchase = Purchase::findOrFail($id);
-        $material = $purchase->material;
-        $supplier = $purchase->supplier;
+        $purchaseRequest = $purchase->purchaseRequest;
+        $user = $purchase->user;
 
-        return view('user.purchase.purchases.show', compact('purchase', 'material', 'supplier'));
+        return view('user.purchase.purchases.show', compact('purchase', 'purchaseRequest', 'user'));
     }
 
     public function edit(string $id)
     {
         $purchase = Purchase::findOrFail($id);
-        $materials = Material::all();
-        $suppliers = Supplier::all();
+        $purchaseRequests = PurchaseRequest::all();
 
-        return view('user.purchase.purchases.edit', compact('purchase', 'materials', 'suppliers'));
+        return view('user.purchase.purchases.edit', compact('purchase', 'purchaseRequests'));
     }
 
-    public function update(PurchaseUpdateRequest $request, string $id)
+    public function update(PurchaseMaterialUpdateRequest $request, string $id)
     {
         try {
             $purchase = Purchase::findOrFail($id);
-            $materialID = $request->input('material_id');
-            $supplierID = $request->input('supplier_id');
+            $purchaseRequestId = $request->input('purchase_request_id');
 
-            $material = Material::findOrFail($materialID);
-            $supplier = Supplier::findOrFail($supplierID);
+            $purchaseRequest = PurchaseRequest::findOrFail($purchaseRequestId);
 
             $purchases = $request->all();
-            $purchases['material_id'] = $material->id;
-            $purchases['supplier_id'] = $supplier->id;
+            $purchases['purchase_request_id'] = $purchaseRequest->id;
 
             $purchase->fill($purchases);
 
             if ($purchase->isDirty()) {
                 $purchase->save();
 
-                session()->flash('success', 'Berhasil melakukan perubahan pada daftar pembelian');
+                session()->flash('success', 'Berhasil melakukan perubahan pada daftar pembelian barang');
                 return response()->json(['success' => true], 200);
             } else {
-                session()->flash('info', 'Tidak melakukan perubahan pada daftar pembelian');
+                session()->flash('info', 'Tidak melakukan perubahan pada daftar pembelian barang');
                 return response()->json(['info' => true], 200);
             }
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada daftar pembelian: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada daftar pembelian barang: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -116,7 +111,7 @@ class PurchaseController extends Controller
             $purchase = Purchase::findOrFail($id);
             $purchase->delete();
 
-            return response(['status' => 'success', 'message' => 'Berhasil menghapus daftar pembelian']);
+            return response(['status' => 'success', 'message' => 'Berhasil menghapus daftar pembelian barang']);
         } catch (\Exception $e) {
             // Menangani exception jika terjadi kesalahan saat menghapus
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);

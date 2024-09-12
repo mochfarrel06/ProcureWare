@@ -7,7 +7,7 @@
 @section('content')
     <x-content.container-fluid>
 
-        <x-content.heading-page :title="'Tambah Daftar Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('dashboard')], ['title' => 'Create']]" />
+        <x-content.heading-page :title="'Tambah Daftar Pembelian'" :breadcrumbs="[['title' => 'Purchase', 'url' => route('purchases.index')], ['title' => 'Create']]" />
 
         <x-content.table-container>
 
@@ -30,23 +30,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="processed_by">Diproses oleh</label>
-                        <select class="form-control @error('processed_by') is-invalid @enderror" name="processed_by"
-                            id="processed_by">
-                            <option value="">-- Pilih Diproses oleh --</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="purchase_date">Tanggal Pembelian</label>
-                        <input type="date" class="form-control @error('purchase_date') is-invalid @enderror"
-                            name="purchase_date" id="purchase_date" value="{{ old('purchase_date') }}">
-                    </div>
-
-                    <div class="form-group">
                         <label for="expected_delivery_date">Tanggal Pengiriman yang diharapkan</label>
                         <input type="date" class="form-control @error('expected_delivery_date') is-invalid @enderror"
                             name="expected_delivery_date" id="expected_delivery_date"
@@ -57,21 +40,10 @@
                         <label for="total_price">Total harga</label>
                         <input type="number" class="form-control @error('total_price') is-invalid @enderror"
                             name="total_price" id="total_price" value="{{ old('total_price') }}"
-                            placeholder="Masukkan Jumlah Pembelian">
+                            placeholder="Masukkan total harga">
                     </div>
 
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select name="status" id="status"
-                            class="form-control @error('total_price') is-invalid @enderror">
-                            <option value="">-- Status --</option>
-                            <option value="in_process">In Process</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="canceled">Canceled</option>
-                        </select>
-                    </div>
-
-                    <div class="mt-5">
+                    <div class="mt-4">
                         <button type="submit" id="submit-btn" class="btn btn-primary">Tambah</button>
                         <a href="{{ route('purchases.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>

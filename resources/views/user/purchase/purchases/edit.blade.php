@@ -18,46 +18,45 @@
                     @csrf
                     @method('PUT')
 
-                    <div class="form-group">
-                        <label for="material_id">Material</label>
-                        <select class="form-control @error('material_id') is-invalid @enderror" name="material_id"
-                            id="material_id">
-                            <option value="">-- Pilih Material --</option>
-                            @foreach ($materials as $material)
-                                <option value="{{ $material->id }}"
-                                    {{ $material->id == $purchase->material_id ? 'selected' : '' }}>{{ $material->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="purchase_request_id">Permintaan Pembelian</label>
+                                <select class="form-control @error('purchase_request_id') is-invalid @enderror"
+                                    name="purchase_request_id" id="purchase_request_id">
+                                    <option value="">-- Pilih Permintaan Pembelian --</option>
+                                    @foreach ($purchaseRequests as $purchaseRequest)
+                                        <option value="{{ $purchaseRequest->id }}"
+                                            {{ $purchaseRequest->id == $purchase->purchase_request_id ? 'selected' : '' }}>
+                                            {{ $purchaseRequest->id }} -
+                                            {{ $purchaseRequest->supplier->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="expected_delivery_date">Tanggal Pengiriman yang diharapkan</label>
+                                <input type="date"
+                                    class="form-control @error('expected_delivery_date') is-invalid @enderror"
+                                    name="expected_delivery_date" id="expected_delivery_date"
+                                    value="{{ old('expected_delivery_date', $purchase->expected_delivery_date) }}">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="supplier_id">Supplier</label>
-                        <select class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id"
-                            id="supplier_id">
-                            <option value="">-- Pilih Supplier --</option>
-                            @foreach ($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}"
-                                    {{ $supplier->id == $purchase->supplier_id ? 'selected' : '' }}>{{ $supplier->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="total_price">Total harga</label>
+                                <input type="number" class="form-control @error('total_price') is-invalid @enderror"
+                                    name="total_price" id="total_price"
+                                    value="{{ old('total_price', $purchase->total_price) }}">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="purchase_date">Tanggal Pembelian</label>
-                        <input type="date" class="form-control @error('purchase_date') is-invalid @enderror"
-                            name="purchase_date" id="purchase_date"
-                            value="{{ old('purchase_date', $purchase->purchase_date) }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="quantity">Jumlah Pembelian</label>
-                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity"
-                            id="quantity" value="{{ old('quantity', $purchase->quantity) }}">
-                    </div>
-
-                    <div class="mt-5">
+                    <div class="mt-4">
                         <button type="submit" id="submit-btn" class="btn btn-success">Edit</button>
                         <a href="{{ route('purchases.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>

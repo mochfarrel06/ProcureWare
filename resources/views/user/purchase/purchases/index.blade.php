@@ -1,13 +1,13 @@
 @extends('user.purchase.layouts.master')
 
 @section('title-page')
-    Pembelian
+    Daftar Pembelian
 @endsection
 
 @section('content')
     <x-content.container-fluid>
 
-        <x-content.heading-page :title="'Halaman Daftar Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('purchases.index')], ['title' => 'Jenis Barang']]" />
+        <x-content.heading-page :title="'Halaman Daftar Pembelian'" :breadcrumbs="[['title' => 'Purchase']]" />
 
         <x-content.table-container>
 
