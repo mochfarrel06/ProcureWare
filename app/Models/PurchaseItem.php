@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class PurchaseItem extends Model
 {
     use HasFactory;
-    protected $fillable = ['purchase_id', 'material_id', 'quantity', 'price_per_unit'];
+    protected $fillable = [
+        'purchase_id',
+        'material_id',
+        'quantity',
+        'price_per_unit',
+        'total_price'
+    ];
 
     // Relasi dengan tabel Purchase
     public function purchase()

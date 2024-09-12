@@ -8,6 +8,7 @@ use App\Models\Delivery;
 use App\Models\Purchase;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DeliveryController extends Controller
 {
@@ -16,7 +17,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $deliveries = Delivery::all();
+        $deliveries = Delivery::with(['purchase', 'user'])->get();
         return view('user.warehouse.delivery.index', compact('deliveries'));
     }
 
@@ -25,7 +26,7 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        $purchases = Purchase::all(); // Hanya pembelian yang statusnya 'delivered'
+        $purchases = Purchase::all();
         return view('user.warehouse.delivery.create', compact('purchases'));
     }
 
@@ -35,15 +36,11 @@ class DeliveryController extends Controller
     public function store(DeliveryCreateRequest $request)
     {
         try {
-            // $material = Material::findOrFail($request->material_id);
-            // $supplier = Supplier::findOrFail($request->supplier_id);
-            // $purchaseRequest = PurchaseRequest::findOrFail($request->purchase_request_id);
-            // $user = User::findOrFail($request->deliver);
             $purchase = Purchase::findOrFail($request->purchase_id);
 
             $delivery = new Delivery([
                 'purchase_id' => $purchase->id,
-                'received_by' => auth()->user()->id,
+                'user_id' => Auth::id(),
                 'delivery_date' => now(),
             ]);
 

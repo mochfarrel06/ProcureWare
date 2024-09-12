@@ -10,7 +10,7 @@ class Delivery extends Model
     use HasFactory;
     protected $fillable = [
         'purchase_id',
-        'received_by',
+        'user_id',
         'delivery_date',
     ];
 

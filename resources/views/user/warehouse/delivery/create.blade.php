@@ -7,11 +7,11 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Tambah Daftar Barang Masuk'" :breadcrumbs="[['title' => 'Gudang', 'url' => route('delivery.index')], ['title' => 'Tambah']]" /> --}}
+        <x-content.heading-page :title="'Tambah Penerimaan Barang Pembelian'" :breadcrumbs="[['title' => 'Delivery', 'url' => route('delivery.index')], ['title' => 'Creates']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tambah Daftar Barang Masuk'" :icon="'fas fa-solid fa-plus'" />
+            <x-content.table-header :title="'Tambah Penerimaan Barang Pembelian'" :icon="'fas fa-solid fa-plus'" />
 
             <x-content.card-body>
                 <form id="main-form" action="{{ route('delivery.store') }}" method="POST">

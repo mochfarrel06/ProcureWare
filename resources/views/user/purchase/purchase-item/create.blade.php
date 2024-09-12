@@ -7,18 +7,18 @@
 @section('content')
     <x-content.container-fluid>
 
-        {{-- <x-content.heading-page :title="'Tambah Daftar Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('dashboard')], ['title' => 'Create']]" /> --}}
+        <x-content.heading-page :title="'Tambah Detail Pembelian'" :breadcrumbs="[['title' => 'Purchase Item', 'url' => route('purchase-item.index')], ['title' => 'Create']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tambah Permintaan'" :icon="'fas fa-solid fa-plus'" />
+            <x-content.table-header :title="'Tambah Detail Pembelian'" :icon="'fas fa-solid fa-plus'" />
 
             <x-content.card-body>
                 <form id="main-form" action="{{ route('purchase-item.store') }}" method="POST">
                     @csrf
 
                     <div class="form-group">
-                        <label for="purchase_id">ID Pembelian</label>
+                        <label for="purchase_id">Daftar Pembelian</label>
                         <select name="purchase_id" id="purchase_id" class="form-control">
                             <option value="">-- Pilih --</option>
                             @foreach ($purchases as $purchase)

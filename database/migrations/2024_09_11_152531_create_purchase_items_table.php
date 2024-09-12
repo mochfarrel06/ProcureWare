@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('purchase_id')->constrained('purchases');
             $table->foreignId('material_id')->constrained('materials');
             $table->integer('quantity');
-            $table->float('price_per_unit');
+            $table->decimal('price_per_unit', 8, 2); // Harga per satuan barang
+            $table->decimal('total_price', 8, 2); // Total harga untuk item ini (quantity * price_per_unit)
 
             $table->timestamps();
         });
