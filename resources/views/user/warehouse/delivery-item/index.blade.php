@@ -46,7 +46,7 @@
                             <td>{{ $deliveryItem->unique_code ?? '' }}</td>
                             @if (auth()->user()->role == 'staff_warehouse')
                                 <td>
-                                    <a href="{{ route('warehouse.show', $deliveryItem->id) }}"
+                                    <a href="{{ route('delivery-item.show', $deliveryItem->id) }}"
                                         class="btn btn-warning mr-2 mb-2"><i class="fas fa-eye"></i></a>
                                 </td>
                             @endif

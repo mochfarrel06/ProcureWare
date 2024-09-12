@@ -11,6 +11,10 @@ use App\Models\Material;
 use App\Models\Supplier;
 use App\Models\WarehouseStock;
 use Illuminate\Http\Request;
+use Picqer\Barcode\BarcodeGeneratorPNG;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\File;
 
 class DeliveryItemController extends Controller
 {
@@ -42,13 +46,35 @@ class DeliveryItemController extends Controller
             $delivery = Delivery::findOrFail($request->delivery_id);
             $supplier = Supplier::findOrFail($request->supplier_id);
 
+            // Generate unique code
+            $uniqueCode = $this->generateUniqueCode();
+
+            // Create QR Code instance
+            $qrCode = new QrCode($uniqueCode);
+
+            // Create PNG Writer
+            $writer = new PngWriter();
+
+            // Generate QR Code image
+            $result = $writer->write($qrCode);
+
+            // Ensure the barcodes directory exists
+            $barcodeDir = public_path('barcodes');
+            if (!File::exists($barcodeDir)) {
+                File::makeDirectory($barcodeDir, 0755, true);
+            }
+
+            // Save QR Code image
+            $qrCodePath = $barcodeDir . '/' . $uniqueCode . '.png';
+            $result->saveToFile($qrCodePath);
+
             $deliveryItem = new DeliveryItem([
                 'delivery_id' => $delivery->id,
                 'supplier_id' => $supplier->id,
                 'arrival_date' => now(),
                 'quantity' => $request->quantity,
                 'condition' => $request->condition,
-                'unique_code' => $request->unique_code,
+                'unique_code' => $uniqueCode,
                 'storage_location' => $request->storage_location,
             ]);
 
@@ -75,12 +101,17 @@ class DeliveryItemController extends Controller
         }
     }
 
+    private function generateUniqueCode()
+    {
+        return 'CODE-' . strtoupper(bin2hex(random_bytes(4)));
+    }
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $deliveryItem = DeliveryItem::findOrFail($id);
+        return view('user.warehouse.delivery-item.show', compact('deliveryItem'));
     }
 
     /**

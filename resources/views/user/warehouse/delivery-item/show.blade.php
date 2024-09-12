@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('user.warehouse.layouts.master')
 
 @section('title-page')
     Show
@@ -21,7 +21,7 @@
                 <form>
                     @csrf
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="material_id">Material</label>
                         <input type="text" class="form-control @error('material_id') is-invalid @enderror"
                             name="material_id" id="material_id" value="{{ $material->name }}" disabled>
@@ -45,11 +45,13 @@
                         <label for="quantity">Jumlah Pembelian</label>
                         <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity"
                             id="quantity" value="{{ $purchase->quantity }}" disabled>
-                    </div>
+                    </div> --}}
 
-                    <div class="mt-5">
+                    <img src="{{ asset('barcodes/' . $deliveryItem->unique_code . '.png') }}" alt="Barcode">
+
+                    {{-- <div class="mt-5">
                         <a href="{{ route('purchases.index') }}" class="btn btn-warning">Kembali</a>
-                    </div>
+                    </div> --}}
                 </form>
             </x-content.card-body>
 
