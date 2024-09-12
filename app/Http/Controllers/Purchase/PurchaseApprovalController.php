@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
 use App\Models\Purchase;
+use App\Models\PurchaseRequest;
 use Illuminate\Http\Request;
 
 class PurchaseApprovalController extends Controller
@@ -15,17 +16,16 @@ class PurchaseApprovalController extends Controller
 
     public function index()
     {
-        $purchases = Purchase::all();
-        return view('user.purchase.purchase-approval.index', compact('purchases'));
+        $purchaseRequests = PurchaseRequest::all();
+        return view('user.purchase.purchase-approval.index', compact('purchaseRequests'));
     }
 
     public function approved(string $id)
     {
         try {
-            $purchase = Purchase::findOrFail($id);
-            $purchase->approval_status = 'approved';
-            $purchase->approved_date = now();
-            $purchase->save();
+            $purchaseRequest = PurchaseRequest::findOrFail($id);
+            $purchaseRequest->status = 'approved';
+            $purchaseRequest->save();
 
             session()->flash('success', 'Berhasil menyetujui');
         } catch (\Exception $e) {

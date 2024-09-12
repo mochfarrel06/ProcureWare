@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('purchase_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('purchase_id')->constrained('purchases');
+            $table->unsignedBigInteger('purchase_id');
+
+            $table->string('report_type'); // Jenis laporan, contoh: 'purchase_order' atau 'purchase_summary'
+            $table->date('report_date'); // Tanggal laporan dibuat
+
             $table->timestamps();
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
         });
     }
 

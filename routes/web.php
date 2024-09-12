@@ -7,6 +7,7 @@ use App\Http\Controllers\Purchase\PurchaseApprovalController;
 use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Purchase\PurchaseHistoryController;
 use App\Http\Controllers\Purchase\PurchaseItemController;
+use App\Http\Controllers\Purchase\PurchaseReportController;
 use App\Http\Controllers\Purchase\PurchaseRequestController;
 use App\Http\Controllers\Purchase\SupplierController;
 use App\Http\Controllers\Warehouse\DeliveryController;
@@ -45,9 +46,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'role:manager_a,manager_b']);
 
 Route::middleware(['auth', 'role:staff_purchase,manager_a,manager_b'])->group(function () {
-    // Purchases
-    Route::resource('purchases', PurchaseController::class);
-
     // Material
     Route::resource('material', MaterialController::class);
 
@@ -57,6 +55,9 @@ Route::middleware(['auth', 'role:staff_purchase,manager_a,manager_b'])->group(fu
     // Purchase Request
     Route::resource('purchase-request', PurchaseRequestController::class);
 
+    // Purchases
+    Route::resource('purchases', PurchaseController::class);
+
     // Purchase Item
     Route::resource('purchase-item', PurchaseItemController::class);
 
@@ -64,6 +65,10 @@ Route::middleware(['auth', 'role:staff_purchase,manager_a,manager_b'])->group(fu
     Route::get('purchase-approval', [PurchaseApprovalController::class, 'index'])->name('purchaseApproval.index');
     Route::post('purchase-approval/{id}/approved', [PurchaseApprovalController::class, 'approved'])->name('purchaseApproval.approved');
     Route::post('purchase-approval/{id}/rejected', [PurchaseApprovalController::class, 'rejected'])->name('purchaseApproval.rejected');
+
+    Route::get('purchase-report', [PurchaseReportController::class, 'index'])->name('purchase-report.index');
+    Route::get('purchase-report/create', [PurchaseReportController::class, 'create'])->name('purchase-report.create');
+    Route::post('purchase-report', [PurchaseReportController::class, 'store'])->name('purchase-report.store');
 
     // History Purchase
     Route::get('purchase-history', [PurchaseHistoryController::class, 'index'])->name('purchaseHistory.index');

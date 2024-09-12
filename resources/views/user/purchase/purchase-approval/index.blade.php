@@ -15,52 +15,32 @@
 
             <x-content.table-body>
 
-                <x-content.thead :items="['ID', 'Material', 'Supplier', 'Tanggal Pembelian', 'Jumlah', 'Status Persetujuan', 'Aksi']" />
+                <x-content.thead :items="['No', 'Material', 'Supplier', 'Jumlah', 'Tanggal Permintaan', 'Status Persetujuan', 'Aksi']" />
 
                 <x-content.tbody>
-                    @foreach ($purchases as $purchase)
+                    @foreach ($purchaseRequests as $purchaseRequest)
                         <tr>
                             <td class="index">{{ $loop->index + 1 }}</td>
-                            <td>{{ $purchase->material->name ?? '' }}</td>
-                            <td>{{ $purchase->supplier->name ?? '' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($purchase->purchase_date)->locale('id')->isoFormat('D MMMM YYYY') }}
-                            </td>
-                            <td>{{ $purchase->quantity ?? '' }}</td>
+                            <td>{{ $purchaseRequest->material->name ?? '' }}</td>
+                            <td>{{ $purchaseRequest->supplier->name ?? '' }}</td>
+                            <td>{{ $purchaseRequest->quantity ?? '' }}</td>
+                            <td>{{ $purchaseRequest->request_date }}</td>
                             <td>
-                                {{ $purchase->approval_status }}
-                                {{-- <a
-                                    class="btn
-                                @if ($purchase->approval_status == 'pending') btn-warning
-                                @elseif ($purchase->approval_status == 'approved')
-                                    btn-success
-                                @elseif ($purchase->approval_status == 'rejected')
-                                    btn-danger
-                                @else
-                                    btn-secondary @endif
-                            ">
-                                    {{ ucfirst($purchase->approval_status) ?? 'Unknown' }}
-                                </a> --}}
+                                {{ $purchaseRequest->status }}
                             </td>
                             <td>
-                                {{-- @if ($purchase->approval_status == 'pending')
-                                    <a href="{{ route('purchaseApproval.approved', $purchase->id) }}">Setujui</a> |
-                                    <a href="{{ route('purchaseApproval.rejected', $purchase->id) }}">Tolak</a>
-                                @else
-                                    Tidak ada aksi
-                                @endif --}}
-
                                 <div class="d-flex justify-content-center">
-                                    <form action="{{ route('purchaseApproval.approved', $purchase->id) }}" method="POST"
-                                        class="approve-reject-form">
+                                    <form action="{{ route('purchaseApproval.approved', $purchaseRequest->id) }}"
+                                        method="POST" class="approve-reject-form">
                                         @csrf
                                         <button type="submit" class="btn btn-success approve-btn mr-3"
-                                            {{ $purchase->approval_status === 'approved' ? 'disabled' : '' }}>Approve</button>
+                                            {{ $purchaseRequest->status === 'approved' ? 'disabled' : '' }}>Approve</button>
                                     </form>
-                                    <form action="{{ route('purchaseApproval.rejected', $purchase->id) }}" method="POST"
-                                        class="approve-reject-form">
+                                    <form action="{{ route('purchaseApproval.rejected', $purchaseRequest->id) }}"
+                                        method="POST" class="approve-reject-form">
                                         @csrf
                                         <button type="submit" class="btn btn-danger reject-btn"
-                                            {{ $purchase->approval_status === 'rejected' ? 'disabled' : '' }}>Reject</button>
+                                            {{ $purchaseRequest->status === 'rejected' ? 'disabled' : '' }}>Reject</button>
                                     </form>
                                 </div>
                             </td>

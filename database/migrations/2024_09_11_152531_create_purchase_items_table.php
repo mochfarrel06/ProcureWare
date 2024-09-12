@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('purchase_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('purchase_id')->constrained('purchases');
-            $table->foreignId('material_id')->constrained('materials');
+            $table->unsignedBigInteger('purchase_id');
+            $table->unsignedBigInteger('material_id');
+
             $table->integer('quantity');
             $table->decimal('price_per_unit', 8, 2); // Harga per satuan barang
             $table->decimal('total_price', 8, 2); // Total harga untuk item ini (quantity * price_per_unit)
 
             $table->timestamps();
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
+            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
         });
     }
 

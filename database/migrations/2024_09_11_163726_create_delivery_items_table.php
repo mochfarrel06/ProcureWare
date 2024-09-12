@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('material_id')->constrained('materials'); // Material yang diterima
             $table->foreignId('supplier_id')->constrained('suppliers'); // Supplier yang memberikan barang
             $table->integer('quantity'); // Jumlah material yang diterima
-            $table->enum('condition', ['good', 'damaged'])->default('good'); // Kondisi barang
+            $table->enum('condition', ['good', 'bad']); // Kondisi barang
             $table->string('unique_code')->unique(); // Nomor unik atau barcode
             $table->string('storage_location'); // Lokasi penyimpanan di gudang
             $table->timestamps();
