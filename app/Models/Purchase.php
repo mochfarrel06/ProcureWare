@@ -33,4 +33,9 @@ class Purchase extends Model
     {
         return $this->hasMany(Delivery::class);
     }
+
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
 }

@@ -7,7 +7,7 @@
 @section('content')
     <x-content.container-fluid>
 
-        <x-content.heading-page :title="'Halaman Master Material'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('dashboard')], ['title' => 'Material']]" />
+        <x-content.heading-page :title="'Halaman Master Material'" :breadcrumbs="[['title' => 'Material']]" />
 
         <x-content.table-container>
 
@@ -17,7 +17,7 @@
 
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Nama Material</th>
                         <th>Kode Material</th>
                         <th>Satuan Material</th>
