@@ -17,11 +17,13 @@
 
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Tanggal Pembelian</th>
+                        <th>No</th>
+                        <th>Material</th>
                         <th>Supplier</th>
                         <th>Total Harga</th>
                         <th>Status</th>
+                        <th>Tanggal Pembelian</th>
+                        <th>Batas Material diterima</th>
                         @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                             <th>Aksi</th>
                         @endif
@@ -32,9 +34,9 @@
                     @foreach ($purchases as $purchase)
                         <tr>
                             <td class="index">{{ $loop->index + 1 }}</td>
-                            <td>{{ $purchase->purchase_date ?? '' }}</td>
+                            <td>{{ $purchase->purchaseRequest->material->name ?? '' }}</td>
                             <td>{{ $purchase->purchaseRequest->supplier->name ?? '' }}</td>
-                            <td>{{ $purchase->total_price ?? '' }}</td>
+                            <td>Rp {{ number_format($purchase->total_price ?? 0, 0, ',', '.') }}</td>
                             <td>
                                 <a
                                     class="btn
@@ -49,12 +51,17 @@
                                     {{ ucfirst($purchase->status) ?? 'Unknown' }}
                                 </a>
                             </td>
+                            <td>{{ \Carbon\Carbon::parse($purchase->purchase_date)->locale('id')->isoFormat('D MMMM YYYY') }}
+                            </td>
+                            <td>{{ \Carbon\Carbon::parse($purchase->expected_delivery_date)->locale('id')->isoFormat('D MMMM YYYY') }}
+                            </td>
                             @if (auth()->user()->role == 'manager_b' || auth()->user()->role == 'staff_purchase')
                                 <td>
                                     <a href="{{ route('purchases.show', $purchase->id) }}"
                                         class="btn btn-warning mr-2 mb-2"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('purchases.edit', $purchase->id) }}"
-                                        class="btn btn-success mr-2 mb-2"><i class="fas fa-edit"></i></a>
+                                        class="btn btn-success mr-2 mb-2 {{ $purchase->status == 'delivered' ? 'disabled' : '' }}"><i
+                                            class="fas fa-edit"></i></a>
                                     <a href="{{ route('purchases.destroy', $purchase->id) }}"
                                         class="btn btn-danger mr-2 mb-2 delete-item"><i class="fas fa-trash"></i></a>
                                 </td>

@@ -13,6 +13,7 @@ class Purchase extends Model
         'user_id',
         'purchase_date',
         'expected_delivery_date',
+        'price_per_unit',
         'total_price',
         'status',
     ];

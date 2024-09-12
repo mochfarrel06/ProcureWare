@@ -46,7 +46,7 @@
 
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="quantity">Jumlah barang</label>
+                                <label for="quantity">Jumlah material</label>
                                 <input type="number" class="form-control @error('quantity') is-invalid @enderror"
                                     name="quantity" id="quantity" value="{{ $purchaseRequest->quantity }}" disabled>
                             </div>

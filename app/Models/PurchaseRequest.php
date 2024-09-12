@@ -36,6 +36,11 @@ class PurchaseRequest extends Model
         return $this->belongsTo(Supplier::class);
     }
 
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
+    }
+
     // Scope untuk mengambil permintaan yang statusnya pending
     public function scopePending($query)
     {

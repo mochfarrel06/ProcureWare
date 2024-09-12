@@ -1,21 +1,29 @@
 @extends('user.purchase.layouts.master')
 
 @section('title-page')
-    Pembelian
+    Persetujuan
 @endsection
 
 @section('content')
     <x-content.container-fluid>
 
-        <x-content.heading-page :title="'Halaman Pembelian'" :breadcrumbs="[['title' => 'Dashboard', 'url' => route('purchaseApproval.index')], ['title' => 'Jenis Barang']]" />
+        <x-content.heading-page :title="'Halaman Persetujuan Pembelian'" :breadcrumbs="[['title' => 'Purchase Approval']]" />
 
         <x-content.table-container>
 
-            <x-content.table-header :title="'Tabel Pembelian'" :icon="'fas fa-solid fa-shop'" />
+            <x-content.table-header :title="'Tabel Persetujuan Pembelian'" :icon="'fas fa-solid fa-handshake'" />
 
             <x-content.table-body>
 
-                <x-content.thead :items="['No', 'Material', 'Supplier', 'Jumlah', 'Tanggal Permintaan', 'Status Persetujuan', 'Aksi']" />
+                <x-content.thead :items="[
+                    'No',
+                    'Material',
+                    'Supplier',
+                    'Jumlah Material',
+                    'Tanggal Permintaan',
+                    'Status Persetujuan',
+                    'Aksi',
+                ]" />
 
                 <x-content.tbody>
                     @foreach ($purchaseRequests as $purchaseRequest)
@@ -24,12 +32,13 @@
                             <td>{{ $purchaseRequest->material->name ?? '' }}</td>
                             <td>{{ $purchaseRequest->supplier->name ?? '' }}</td>
                             <td>{{ $purchaseRequest->quantity ?? '' }}</td>
-                            <td>{{ $purchaseRequest->request_date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($purchaseRequest->request_date)->locale('id')->isoFormat('D MMMM YYYY') }}
+                            </td>
                             <td>
                                 {{ $purchaseRequest->status }}
                             </td>
                             <td>
-                                <div class="d-flex justify-content-center">
+                                <div class="d-flex">
                                     <form action="{{ route('purchaseApproval.approved', $purchaseRequest->id) }}"
                                         method="POST" class="approve-reject-form">
                                         @csrf

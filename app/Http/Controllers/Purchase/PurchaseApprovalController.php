@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class PurchaseApprovalController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:manager_a,manager_b');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('role:manager_a,manager_b');
+    // }
 
     public function index()
     {
@@ -27,10 +27,10 @@ class PurchaseApprovalController extends Controller
             $purchaseRequest->status = 'approved';
             $purchaseRequest->save();
 
-            session()->flash('success', 'Berhasil menyetujui');
+            session()->flash('success', 'Berhasil menyetujui permintaan pembelian, silahkan lanjutkan proses pembelian');
         } catch (\Exception $e) {
             // Menyimpan pesan error ke dalam sesi jika terjadi kesalahan
-            session()->flash('error', "Terdapat kesalahan pada pengajuan lahan: " . $e->getMessage());
+            session()->flash('error', "Terdapat kesalahan pada permintaan pembelian: " . $e->getMessage());
         }
 
         return redirect()->back();
@@ -39,14 +39,14 @@ class PurchaseApprovalController extends Controller
     public function rejected(string $id)
     {
         try {
-            $purchase = Purchase::findOrFail($id);
-            $purchase->approval_status = 'rejected';
-            $purchase->save();
+            $purchaseRequest = PurchaseRequest::findOrFail($id);
+            $purchaseRequest->status = 'rejected';
+            $purchaseRequest->save();
 
-            session()->flash('success', 'Berhasil menolak');
+            session()->flash('success', 'Berhasil menolak permintaan pembelian, harap di lakukan perbaikan');
         } catch (\Exception $e) {
             // Menyimpan pesan error ke dalam sesi jika terjadi kesalahan
-            session()->flash('error', "Terdapat kesalahan pada pengajuan lahan: " . $e->getMessage());
+            session()->flash('error', "Terdapat kesalahan pada permintaan pembelian: " . $e->getMessage());
         }
 
         return redirect()->back();

@@ -23,24 +23,17 @@
                             name="purchase_request_id" id="purchase_request_id">
                             <option value="">-- Pilih Permintaan Pembelian --</option>
                             @foreach ($purchaseRequests as $purchaseRequest)
-                                <option value="{{ $purchaseRequest->id }}">{{ $purchaseRequest->id }} -
+                                <option value="{{ $purchaseRequest->id }}">{{ $purchaseRequest->material->name }} -
                                     {{ $purchaseRequest->supplier->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="expected_delivery_date">Tanggal Pengiriman yang diharapkan</label>
-                        <input type="date" class="form-control @error('expected_delivery_date') is-invalid @enderror"
-                            name="expected_delivery_date" id="expected_delivery_date"
-                            value="{{ old('expected_delivery_date') }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="total_price">Total harga</label>
-                        <input type="number" class="form-control @error('total_price') is-invalid @enderror"
-                            name="total_price" id="total_price" value="{{ old('total_price') }}"
-                            placeholder="Masukkan total harga">
+                        <label for="price_per_unit">Harga satuan material</label>
+                        <input type="number" class="form-control @error('price_per_unit') is-invalid @enderror"
+                            name="price_per_unit" id="price_per_unit" value="{{ old('price_per_unit') }}"
+                            placeholder="Harga satuan material">
                     </div>
 
                     <div class="mt-4">

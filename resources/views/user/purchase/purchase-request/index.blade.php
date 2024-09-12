@@ -56,7 +56,8 @@
                                     <a href="{{ route('purchase-request.show', $purchaseRequest->id) }}"
                                         class="btn btn-warning mr-2 mb-2"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('purchase-request.edit', $purchaseRequest->id) }}"
-                                        class="btn btn-success mr-2 mb-2"><i class="fas fa-edit"></i></a>
+                                        class="btn btn-success mr-2 mb-2 {{ $purchaseRequest->status == 'approved' ? 'disabled' : '' }}"><i
+                                            class="fas fa-edit"></i></a>
                                     <a href="{{ route('purchase-request.destroy', $purchaseRequest->id) }}"
                                         class="btn btn-danger mr-2 mb-2 delete-item"><i class="fas fa-trash"></i></a>
                                 </td>

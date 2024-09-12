@@ -28,30 +28,18 @@
                                     @foreach ($purchaseRequests as $purchaseRequest)
                                         <option value="{{ $purchaseRequest->id }}"
                                             {{ $purchaseRequest->id == $purchase->purchase_request_id ? 'selected' : '' }}>
-                                            {{ $purchaseRequest->id }} -
-                                            {{ $purchaseRequest->supplier->name }}</option>
+                                            {{ $purchaseRequest->material->name }} - {{ $purchaseRequest->supplier->name }}
+                                            - {{ $purchaseRequest->quantity }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="expected_delivery_date">Tanggal Pengiriman yang diharapkan</label>
-                                <input type="date"
-                                    class="form-control @error('expected_delivery_date') is-invalid @enderror"
-                                    name="expected_delivery_date" id="expected_delivery_date"
-                                    value="{{ old('expected_delivery_date', $purchase->expected_delivery_date) }}">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="total_price">Total harga</label>
-                                <input type="number" class="form-control @error('total_price') is-invalid @enderror"
-                                    name="total_price" id="total_price"
-                                    value="{{ old('total_price', $purchase->total_price) }}">
+                                <label for="price_per_unit">Harga satuan material</label>
+                                <input type="number" class="form-control @error('price_per_unit') is-invalid @enderror"
+                                    name="price_per_unit" id="price_per_unit"
+                                    value="{{ old('price_per_unit', $purchase->price_per_unit) }}">
                             </div>
                         </div>
                     </div>

@@ -38,9 +38,7 @@
                                     disabled>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="user_id">Diproses oleh:</label>
@@ -58,12 +56,10 @@
                                     disabled>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="expected_delivery_date">Tanggal perkiraan barang datang</label>
+                                <label for="expected_delivery_date">Batas Material diterima</label>
                                 <input type="text"
                                     class="form-control @error('expected_delivery_date') is-invalid @enderror"
                                     name="expected_delivery_date" id="expected_delivery_date"
@@ -74,9 +70,27 @@
 
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="total_price">Total Harga</label>
-                                <input type="number" class="form-control @error('total_price') is-invalid @enderror"
-                                    name="total_price" id="total_price" value="{{ $purchase->total_price }}" disabled>
+                                <label for="price_per_unit">Harga satuan material</label>
+                                <input type="text" class="form-control @error('price_per_unit') is-invalid @enderror"
+                                    name="price_per_unit" id="price_per_unit"
+                                    value="Rp {{ number_format($purchase->price_per_unit ?? 0, 0, ',', '.') }}" disabled>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="quantity">Jumlah material</label>
+                                <input type="number" class="form-control @error('quantity') is-invalid @enderror"
+                                    name="quantity" id="quantity" value="{{ $purchaseRequest->quantity }}" disabled>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="total_price">Total Harga Material</label>
+                                <input type="text" class="form-control @error('total_price') is-invalid @enderror"
+                                    name="total_price" id="total_price"
+                                    value="Rp {{ number_format($purchase->total_price ?? 0, 0, ',', '.') }}" disabled>
                             </div>
                         </div>
                     </div>

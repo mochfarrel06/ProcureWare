@@ -20,7 +20,6 @@
                 'supplier.*',
                 'purchase-request.*',
                 'purchases.*',
-                'purchase-item.*',
                 'purchase-report.*',
                 'purchaseHistory.*',
             ]" :subItems="[
@@ -28,18 +27,17 @@
                 ['route' => 'supplier.index', 'label' => 'Master Supplier'],
                 ['route' => 'purchase-request.index', 'label' => 'Permintaan Pembelian'],
                 ['route' => 'purchases.index', 'label' => 'Daftar Pembelian'],
-                ['route' => 'purchase-item.index', 'label' => 'Detail Pembelian'],
                 ['route' => 'purchase-report.index', 'label' => 'Laporan Pembelian'],
                 ['route' => 'purchaseHistory.index', 'label' => 'Riwayat Pembelian'],
             ]" />
     @endif
 
     @if (auth()->user()->role == 'manager_a' || auth()->user()->role == 'manager_b')
-        <x-sidebar.nav-item title="Persetujuan" icon="fa-book" label="Persetujuan" collapseId="collapseItem"
+        <x-sidebar.nav-item title="Persetujuan" icon="fa-handshake" label="Persetujuan" collapseId="collapseItem1"
             :routes="['purchaseApproval.*']" :subItems="[
                 [
                     'route' => 'purchaseApproval.index',
-                    'label' => 'Master Persetujuan',
+                    'label' => 'Persetujuan',
                 ],
             ]" />
     @endif

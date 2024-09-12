@@ -16,9 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('purchase_request_id');
             $table->unsignedBigInteger('user_id');
 
-            $table->date('purchase_date');
-            $table->date('expected_delivery_date');
-            $table->float('total_price');
+            $table->date('purchase_date')->nullable();
+            $table->date('expected_delivery_date')->nullable();
+            $table->decimal('price_per_unit', 20, 2);
+            $table->decimal('total_price', 20, 2)->nullable();
             $table->enum('status', ['in_process', 'delivered', 'canceled'])->default('in_process');
 
             $table->timestamps();

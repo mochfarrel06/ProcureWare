@@ -23,8 +23,7 @@ class PurchaseMaterialCreateRequest extends FormRequest
     {
         return [
             'purchase_request_id' => ['required', 'exists:purchase_requests,id'],
-            'expected_delivery_date' => ['required', 'date'],
-            'total_price' => ['required', 'numeric'],
+            'price_per_unit' => ['required', 'numeric']
         ];
     }
 
@@ -32,8 +31,7 @@ class PurchaseMaterialCreateRequest extends FormRequest
     {
         return [
             'purchase_request_id.required' => 'Permintaan pembelian tidak boleh kosong',
-            'expected_delivery_date.required' => 'Tanggal Pengiriman Diharapkan tidak boleh kosong',
-            'total_price.required' => 'Total harga tidak boleh kosong',
+            'price_per_unit.required' => 'Harga satuan tidak boleh kosong',
         ];
     }
 }
