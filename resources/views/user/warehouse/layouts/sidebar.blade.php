@@ -17,7 +17,7 @@
             :routes="['warehouse.*', 'stock.*', 'delivery.*', 'delivery-item.*']" :subItems="[
                 ['route' => 'warehouse.index', 'label' => 'Gudang'],
                 ['route' => 'stock.index', 'label' => 'stock'],
-                ['route' => 'delivery.index', 'label' => 'delivery'],
+                ['route' => 'delivery.index', 'label' => 'Delivery'],
                 ['route' => 'delivery-item.index', 'label' => 'delivery item'],
             ]" />
     @endif

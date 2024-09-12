@@ -31,9 +31,11 @@
                     @foreach ($deliveries as $delivery)
                         <tr>
                             <td class="index">{{ $loop->index + 1 }}</td>
-                            <td>{{ $delivery->purchase->id }}</td>
+                            <td>{{ $delivery->purchase->purchaseRequest->material->name }} -
+                                {{ $delivery->purchase->purchaseRequest->supplier->name }}</td>
                             <td>{{ $delivery->user->name }}</td>
-                            <td>{{ $delivery->delivery_date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($delivery->delivery_date)->locale('id')->isoFormat('D MMMM YYYY') }}
+                            </td>
                             @if (auth()->user()->role == 'staff_warehouse')
                                 <td>
                                     <a href="{{ route('delivery.show', $delivery->id) }}" class="btn btn-warning mr-2 mb-2"><i

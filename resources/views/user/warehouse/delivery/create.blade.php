@@ -7,7 +7,7 @@
 @section('content')
     <x-content.container-fluid>
 
-        <x-content.heading-page :title="'Tambah Penerimaan Barang Pembelian'" :breadcrumbs="[['title' => 'Delivery', 'url' => route('delivery.index')], ['title' => 'Creates']]" />
+        <x-content.heading-page :title="'Tambah Penerimaan Barang Pembelian'" :breadcrumbs="[['title' => 'Delivery', 'url' => route('delivery.index')], ['title' => 'Create']]" />
 
         <x-content.table-container>
 
@@ -23,12 +23,13 @@
                             class="form-control @error('purchase_id') is-invalid @enderror">
                             <option value="">-- Pilih Daftar Pembelian --</option>
                             @foreach ($purchases as $purchase)
-                                <option value="{{ $purchase->id }}">{{ $purchase->total_price }}</option>
+                                <option value="{{ $purchase->id }}">{{ $purchase->purchaseRequest->material->name }} -
+                                    {{ $purchase->purchaseRequest->supplier->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="mt-3">
+                    <div class="mt-4">
                         <button type="submit" id="submit-btn" class="btn btn-primary">Tambah</button>
                         <a href="{{ route('delivery.index') }}" class="btn btn-warning ml-2">Kembali</a>
                     </div>

@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('purchase_id')->constrained('purchases'); // Terkait dengan pembelian
-            $table->foreignId('user_id')->constrained('users'); // Staff Gudang yang menerima
+
+            $table->unsignedBigInteger('purchase_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('delivery_date');
+
             $table->timestamps();
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

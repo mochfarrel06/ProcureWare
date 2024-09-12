@@ -26,7 +26,7 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        $purchases = Purchase::all();
+        $purchases = Purchase::whereDoesntHave('delivery')->get();
         return view('user.warehouse.delivery.create', compact('purchases'));
     }
 
@@ -49,10 +49,10 @@ class DeliveryController extends Controller
             $purchase->status = 'delivered';
             $purchase->save();
 
-            session()->flash('success', 'Berhasil menambahkan daftar pembelian barang');
+            session()->flash('success', 'Berhasil menerima barang pembelian dari supplier');
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            session()->flash('error', 'Terdapat kesalahan pada proses daftar pembelian barang: ' . $e->getMessage());
+            session()->flash('error', 'Terdapat kesalahan pada proses menerima barang pembelian: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -62,7 +62,11 @@ class DeliveryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $delivery = Delivery::findOrFail($id);
+        $purchase = $delivery->purchase;
+        $user = $delivery->user;
+
+        return view('user.warehouse.delivery.show', compact('delivery', 'purchase', 'user'));
     }
 
     /**
